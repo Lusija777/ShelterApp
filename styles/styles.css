@@ -17,3 +17,13 @@ body{
     padding-top: 80px;
 }
 
+.card {
+    cursor: pointer;
+    border: none;
+}
+
+.selected {
+    background-color: #007bff !important;
+    color: white !important;
+}
+
