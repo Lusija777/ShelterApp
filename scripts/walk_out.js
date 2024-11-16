@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
+    localStorage.removeItem('selectedDate');
+    localStorage.removeItem('selectedTime');
+
     const datepicker = document.querySelector('#datepicker');
     const timeButtons = document.querySelectorAll('#time button');
     const submitButton = document.querySelector('#submit');
