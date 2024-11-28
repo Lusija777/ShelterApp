@@ -37,8 +37,15 @@ tooltipContainer.addEventListener('mouseleave', () => {
 // Spracovanie formulára
 document.getElementById('registerForm').addEventListener('submit', function (event) {
     event.preventDefault();
+    const form = this;
 
-    // Získanie hodnôt z formulára
+    // Skrytie Bootstrap validácie, pokiaľ bude kontrola neplatná
+    if (!form.checkValidity()) {
+        event.stopPropagation();
+        form.classList.add('was-validated');
+        return;
+    }
+
     const idNumber = document.getElementById('walkId').value.trim();
     const name = document.getElementById('name').value.trim();
     const surname = document.getElementById('surname').value.trim();
@@ -47,20 +54,7 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
 
-    // Skrytie všetkých predchádzajúcich chybových správ
-    const errorMessages = document.querySelectorAll('.error-message');
-    errorMessages.forEach(function (message) {
-        message.remove();
-    });
-
-    // Premenné na kontrolu chýb
     let hasError = false;
-
-    // Kontrola vyplnenia povinných polí
-    if (!name || !surname || !phone || !email) {
-        showError('walkId', 'Vyplňte všetky povinné polia.');
-        hasError = true;
-    }
 
     // Kontrola zhodnosti venčiarskeho preukazu
     if (idNumber) {
@@ -68,32 +62,27 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
         if (!user) {
             showError('walkId', 'Venčiarsky preukaz sa nenašiel medzi registrovanými užívateľmi.');
             hasError = true;
-        }
-
-        // Kontrola, či sa ostatné údaje zhodujú
-        if (user.name !== name || user.surname !== surname || user.phone !== phone || user.email !== email) {
+        } else if (user.name !== name || user.surname !== surname || user.phone !== phone || user.email !== email) {
             showError('walkId', 'Údaje sa nezhodujú s existujúcim preukazom.');
             hasError = true;
         }
     }
 
-    // Kontrola hesiel, ak je zadané
+    // Kontrola hesiel, ak sú zadané
     if (document.getElementById('passwordToggle').checked) {
         if (!password || !confirmPassword) {
             showError('password', 'Vyplňte obe heslové polia.');
             hasError = true;
         } else if (password !== confirmPassword) {
-            showError('password', 'Heslá sa nezhodujú.');
+            showError('confirmPassword', 'Heslá sa nezhodujú.');
             hasError = true;
         }
     }
 
-    // Ak sú chyby, neuložíme údaje
     if (hasError) {
+        form.classList.remove('was-validated');
         return;
     }
-
-    // Uloženie do Local Storage
     const userData = {
         idNumber,
         name,
@@ -104,14 +93,15 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
     };
     localStorage.setItem('userData', JSON.stringify(userData));
     console.log('Údaje boli uložené.');
+    window.location.href = 'walk_out_summary.html';
 });
 
-// Funkcia na zobrazenie chybovej správy
+// Funkcia na zobrazenie chýb
 function showError(inputId, message) {
     const inputElement = document.getElementById(inputId);
-    const errorElement = document.createElement('div');
-    errorElement.classList.add('error-message', 'text-danger', 'mt-2');
-    errorElement.textContent = message;
-    inputElement.classList.add('is-invalid'); // Pridáme Bootstrap triedu na označenie chyby
-    inputElement.parentNode.appendChild(errorElement);
+    const errorMessage = document.createElement('div');
+    errorMessage.className = 'invalid-feedback d-block';
+    errorMessage.textContent = message;
+    inputElement.classList.add('is-invalid');
+    inputElement.parentNode.appendChild(errorMessage);
 }
