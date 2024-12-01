@@ -20,6 +20,78 @@
     <div class="row text-center">
         <h1>Pod sa prejst</h1>
     </div>
+
+    <div class="row mb-1">
+        <div class="col-9">
+            <label>Vyplňte osobné údaje </label>
+        </div>
+    </div>
+    <div class="progress mx-3 mb-2">
+        <div class="progress-bar progress-bar-striped bg-primary" role="progressbar" style="width: 50%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+
+    <form id="registerForm" novalidate>
+        <div class="mb-3">
+            <label for="walkId" class="form-label">Venčiarsky preukaz</label>
+            <div style="position: relative; display: inline-block; cursor: help;">
+                <span style="border: 1px solid #007bff; border-radius: 50%; display: inline-block; width: 1.5em; height: 1.5em; text-align: center; color: #007bff; font-weight: bold; line-height: 1.5em;">i</span>
+                <div style="visibility: hidden; width: 200px; background-color: #f9f9f9; color: #333; text-align: center; border-radius: 4px; padding: 5px; position: absolute; top: 125%; left: 50%; transform: translateX(-50%); box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); z-index: 1;">
+                    Ak nemáte venčiarsky preukaz, bude vám vybavený osobne pred prechádzkou.
+                    <div style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-width: 5px; border-style: solid; border-color: transparent transparent #f9f9f9 transparent;"></div>
+                </div>
+            </div>
+            <div class="input-group">
+                <input type="text" id="walkId" class="form-control" placeholder="Zadajte číslo venčiarskeho preukazu">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Meno</label>
+            <input type="text" id="name" class="form-control" placeholder="Zadajte meno" required>
+            <div class="invalid-feedback">Meno je povinné.</div>
+        </div>
+        <div class="mb-3">
+            <label for="surname" class="form-label">Priezvisko</label>
+            <input type="text" id="surname" class="form-control" placeholder="Zadajte priezvisko" required>
+            <div class="invalid-feedback">Priezvisko je povinné.</div>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Telefónne číslo</label>
+            <input type="tel" id="phone" class="form-control" placeholder="Zadajte telefónne číslo" required>
+            <div class="invalid-feedback">Telefónne číslo je povinné.</div>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">E-mail</label>
+            <input type="email" id="email" class="form-control" placeholder="Zadajte e-mail" required>
+            <div class="invalid-feedback">E-mail je povinný a musí byť platný.</div>
+        </div>
+
+        <div class="mb-3">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="passwordToggle">
+                <label class="form-check-label" for="passwordToggle">Zadajte heslo</label>
+            </div>
+        </div>
+
+        <div id="passwordFields" class="d-none">
+            <div class="mb-3">
+                <label for="password" class="form-label">Heslo</label>
+                <input type="password" id="password" class="form-control" placeholder="Zadajte heslo">
+                <div class="invalid-feedback">Heslo je povinné.</div>
+            </div>
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Potvrďte heslo</label>
+                <input type="password" id="confirmPassword" class="form-control" placeholder="Potvrďte heslo">
+                <div class="invalid-feedback">Heslo sa musí zhodovať.</div>
+            </div>
+        </div>
+
+        <div class="row" id="submitSection">
+            <div class="col-12 mb-2">
+                <button id="backButton" class="btn btn-secondary btn-lg" type="button"><i class="fa-solid fa-chevron-left"></i></button>
+                <button id="submit" class="btn btn-lg btn-primary w-75" type="submit">Potvrdiť výber</button>
+            </div>
+        </div>
+    </form>
 </div>
 
 <div id="footer"></div>
@@ -29,5 +101,6 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://npmcdn.com/flatpickr/dist/l10n/sk.js"></script>
 <script src="scripts/script.js"></script>
+<script src="scripts/walk_out_user_info.js"></script>
 </body>
 </html>
