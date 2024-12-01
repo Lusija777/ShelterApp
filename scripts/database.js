@@ -1,9 +1,9 @@
 const dogs = [
-    { id: 1, name: 'Max', size: 'veľká', sex: 'pes', photo: 'images/dogs/dog1.jpg', age: '3 roky' },
-    { id: 2, name: 'Bella', size: 'malá', sex: 'fenka', photo: 'images/dogs/dog2.jpg', age: '2 roky' },
-    { id: 3, name: 'Charlie', size: 'stredná', sex: 'pes', photo: 'images/dogs/dog3.jpg', age: '4 roky' },
-    { id: 4, name: 'Lucy', size: 'stredná', sex: 'fenka', photo: 'images/dogs/dog4.jpg', age: '5 rokov' },
-    { id: 5, name: 'Daisy', size: 'veľká', sex: 'fenka', photo: 'images/dogs/dog5.jpg', age: '1 rok' },
+    { id: 1, name: 'Max', size: 'malá', sex: 'pes', photo: 'images/dogs/dog1.jpg', age: '3 roky' },
+    { id: 2, name: 'Bella', size: 'stredná', sex: 'fenka', photo: 'images/dogs/dog2.jpg', age: '2 roky' },
+    { id: 3, name: 'Charlie', size: 'malá', sex: 'pes', photo: 'images/dogs/dog3.jpg', age: '4 roky' },
+    { id: 4, name: 'Lucy', size: 'veľká', sex: 'fenka', photo: 'images/dogs/dog4.jpg', age: '5 rokov' },
+    { id: 5, name: 'Daisy', size: 'stredná', sex: 'fenka', photo: 'images/dogs/dog5.jpg', age: '1 rok' },
 ];
 
 const users = [

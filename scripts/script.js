@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('footer').innerHTML = data;
         })
         .catch(error => console.error('Error loading footer:', error));
+
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 });
 
 function removeDataInLocalStorageForWalk() {
@@ -21,6 +24,7 @@ function removeDataInLocalStorageForWalk() {
     localStorage.removeItem('selectedDogId');
     localStorage.removeItem('selectedDate');
     localStorage.removeItem('selectedTime');
+    localStorage.removeItem('timeId');
 }
 
 function redirectToPage(page) {

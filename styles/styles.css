@@ -37,3 +37,12 @@ body{
     transition: transform 0.3s ease;
 }
 
+html, body {
+    height: 100%; /* Ensure the page takes up at least the full height */
+    display: flex;
+    flex-direction: column; /* Makes the body a column container */
+}
+
+.container-fluid {
+    flex: 1; /* This makes the content take the available space */
+}

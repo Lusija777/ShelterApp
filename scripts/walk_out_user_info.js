@@ -7,11 +7,6 @@ document.getElementById('passwordToggle').addEventListener('change', function() 
     }
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-});
-
 // Spracovanie formulára
 document.getElementById('registerForm').addEventListener('submit', function (event) {
     event.preventDefault();

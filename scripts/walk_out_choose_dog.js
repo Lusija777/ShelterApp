@@ -5,6 +5,13 @@ let currentPage = 1;
 var filteredDogs = dogs;
 const applyFilterButton = document.getElementById("applyFilter");
 
+document.addEventListener('DOMContentLoaded', function() {
+    let selectedDogId = localStorage.getItem('selectedDogId');
+    console.log(selectedDogId);
+    if (selectedDogId) {
+        selectDog(selectedDogId);
+    }
+});
 
 applyFilterButton.addEventListener("click", () => {
     const sex = document.getElementById("sex").value;
@@ -37,8 +44,8 @@ function renderDogs(page = 1) {
                 <img src="${dog.photo}" class="dog-photo card-img-top" alt="${dog.name}">
                 <div class="dog-info text-center border rounded-pill mt-1 border-secondary">
                     <strong>${dog.name}</strong><br>
-                    <small>${dog.size}, ${dog.sex}</small><br>
-                    <small>${dog.age}</small>
+                    <small>veľkosť: ${dog.size}, pohlavie: ${dog.sex}</small><br>
+                    <small>vek: ${dog.age}</small>
                 </div>
             </div>
         `;
@@ -125,6 +132,10 @@ document.getElementById('submitButton').addEventListener('click', function() {
     }
     else {
         document.querySelector(".invalid-feedback").style.display = "block";
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Use 'auto' for instant scrolling
+        });
     }
 });
 
