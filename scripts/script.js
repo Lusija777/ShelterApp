@@ -16,12 +16,20 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error loading footer:', error));
 });
 
+function removeDataInLocalStorageForWalk() {
+    localStorage.removeItem('userData');
+    localStorage.removeItem('selectedDogId');
+    localStorage.removeItem('selectedDate');
+    localStorage.removeItem('selectedTime');
+}
+
 function redirectToPage(page) {
     switch (page) {
         case 'adopt':
             window.location.href = 'not_implemented.html';
             break;
         case 'walk':
+            removeDataInLocalStorageForWalk();
             window.location.href = 'walk_out.html';
             break;
         case 'help':

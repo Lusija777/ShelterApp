@@ -17,18 +17,57 @@
 <div class="container-fluid">
     <div id="navigation"></div>
     <div class="row text-center">
-        <h1>Pod sa prejst</h1>
+        <h1>Poď sa prejsť</h1>
     </div>
 
     <div class="row mb-1">
         <div class="col-9">
-            <label>Zvolte si psika: *</label>
+            <label>Zvoľte si psíka: *</label>
+            <hr class="mt-0" width="50%">
             <div class="invalid-feedback">
                 Prosím, vyberte si psika z ponuky.
             </div>
         </div>
+
         <div class="col-3 mx-auto">
-            <div id="dogFilter">filter</div>
+            <!-- Filter Button -->
+            <button id="dogFilter" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterModalLabel">Filter</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="filterForm">
+                        <div class="mb-3">
+                            <label for="sex" class="form-label">Pohlavie</label>
+                            <select id="sex" class="form-select">
+                                <option value="">Všetko</option>
+                                <option value="pes">Pes</option>
+                                <option value="fenka">Fenka</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="size" class="form-label">Veľkosť</label>
+                            <select id="size" class="form-select">
+                                <option value="">Všetko</option>
+                                <option value="malá">Malá</option>
+                                <option value="stredná">Stredná</option>
+                                <option value="veľká">Veľká</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zavrieť</button>
+                    <button type="button" id="applyFilter" class="btn btn-success">Použiť Filter</button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="progress mx-3 mb-2">
@@ -48,6 +87,7 @@
     </nav>
 
     <!-- Selection Confirmation -->
+    <div class="text-muted small">* je označený povinný údaj</div>
     <div class="row" id="submitSection">
         <div class="col-12 mb-2">
             <button id="backButton" class="btn btn-secondary btn-lg"><i class="fa-solid fa-chevron-left"></i></button>
@@ -61,6 +101,7 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="scripts/database.js"></script>
 <script src="scripts/walk_out_choose_dog.js"></script>
 <script src="scripts/script.js"></script>
 </body>

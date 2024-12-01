@@ -1,21 +1,27 @@
-const dogs = [
-    { id: 1, name: 'Max', breed: 'Labrador', photo: 'images/dogs/dog1.jpg', age: '3 years' },
-    { id: 2, name: 'Bella', breed: 'Golden Retriever', photo: 'images/dogs/dog2.jpg', age: '2 years' },
-    { id: 3, name: 'Charlie', breed: 'Bulldog', photo: 'images/dogs/dog3.jpg', age: '4 years' },
-    { id: 4, name: 'Lucy', breed: 'Beagle', photo: 'images/dogs/dog4.jpg', age: '5 years' },
-    { id: 5, name: 'Daisy', breed: 'Poodle', photo: 'images/dogs/dog5.jpg', age: '1 year' },
-];
-
 let selectedDogId = null;
 const dogsPerPage = 4; // Number of dogs to show per page
 let currentPage = 1;
 
-function renderDogs(page = 1, filter = '') {
-    const filteredDogs = dogs.filter(dog =>
-        dog.name.toLowerCase().includes(filter.toLowerCase()) ||
-        dog.breed.toLowerCase().includes(filter.toLowerCase())
-    );
+var filteredDogs = dogs;
+const applyFilterButton = document.getElementById("applyFilter");
 
+
+applyFilterButton.addEventListener("click", () => {
+    const sex = document.getElementById("sex").value;
+    const size = document.getElementById("size").value;
+
+    // Filter Logic
+    filteredDogs = dogs.filter(dog => {
+        return (!sex || dog.sex === sex) && (!size || dog.size === size);
+    });
+
+    // Render Filtered Dogs
+    renderDogs(1);
+    const filterModal = bootstrap.Modal.getInstance(document.getElementById("filterModal"));
+    filterModal.hide();
+});
+
+function renderDogs(page = 1) {
     const start = (page - 1) * dogsPerPage;
     const end = page * dogsPerPage;
     const dogsToDisplay = filteredDogs.slice(start, end);
@@ -31,7 +37,7 @@ function renderDogs(page = 1, filter = '') {
                 <img src="${dog.photo}" class="dog-photo card-img-top" alt="${dog.name}">
                 <div class="dog-info text-center border rounded-pill mt-1 border-secondary">
                     <strong>${dog.name}</strong><br>
-                    <small>${dog.breed}</small><br>
+                    <small>${dog.size}, ${dog.sex}</small><br>
                     <small>${dog.age}</small>
                 </div>
             </div>
@@ -128,7 +134,8 @@ document.getElementById('backButton').addEventListener('click', function() {
 
 function goToPage(page) {
     currentPage = page;
-    renderDogs(page, document.getElementById('dogFilter').value);
+    renderDogs(page);
 }
 
 renderDogs();
+

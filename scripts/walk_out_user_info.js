@@ -1,11 +1,3 @@
-const users = [
-    { idNumber: "123456", name: "Peter", surname: "Novák", phone: "0901234567", email: "peter.novak@email.com", password: "password123" },
-    { idNumber: "654321", name: "Eva", surname: "Kováčová", phone: "0912345678", email: "eva.kovacova@email.com", password: "password321" },
-    { idNumber: "112233", name: "Marek", surname: "Horváth", phone: "0923456789", email: "marek.horvath@email.com", password: "password456" },
-    { idNumber: "223344", name: "Jana", surname: "Müllerová", phone: "0934567890", email: "jana.mullerova@email.com", password: "password789" },
-    { idNumber: "334455", name: "Tomáš", surname: "Varga", phone: "0945678901", email: "tomas.varga@email.com", password: "password101" }
-];
-
 document.getElementById('passwordToggle').addEventListener('change', function() {
     const passwordFields = document.getElementById('passwordFields');
     if (this.checked) {
@@ -16,22 +8,8 @@ document.getElementById('passwordToggle').addEventListener('change', function() 
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.forEach(tooltipTriggerEl => {
-        new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-});
-
-// JavaScript na aktiváciu tooltippu
-const tooltipContainer = document.querySelector('div[style*="cursor: help"]');
-const tooltip = tooltipContainer.querySelector('div');
-
-tooltipContainer.addEventListener('mouseenter', () => {
-    tooltip.style.visibility = 'visible';
-});
-
-tooltipContainer.addEventListener('mouseleave', () => {
-    tooltip.style.visibility = 'hidden';
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 });
 
 // Spracovanie formulára
@@ -105,3 +83,7 @@ function showError(inputId, message) {
     inputElement.classList.add('is-invalid');
     inputElement.parentNode.appendChild(errorMessage);
 }
+
+document.getElementById('backButton').addEventListener('click', function() {
+    history.back();
+});

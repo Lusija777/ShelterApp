@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
         firstDayOfWeek: 1,
         locale: "sk",
         minDate: new Date().fp_incr(1),
-        defaultDate: localStorage.getItem('selectedDate') || null,
     });
 });
 
@@ -15,15 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitButton = document.querySelector('#submit');
 
     let selectedTime = null;
-    let timeId = localStorage.getItem('timeId');
-    if (timeId) {
-        const selectedButton = document.getElementById(timeId);
-        if (selectedButton) {
-            selectedButton.classList.add('selected');
-            selectedTime = selectedButton.innerText;
-        }
-    }
-
     timeButtons.forEach(button => {
         button.addEventListener('click', function () {
             document.querySelectorAll('#time button').forEach(btn => {
@@ -32,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             this.classList.add('selected');
             selectedTime = this.innerText;
-            timeId = this.id;
         });
     });
 
@@ -44,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let isValid = true;
         if (!dateValue) {
             datepicker.classList.add("is-invalid");
+            datepicker.classList.add("border-danger");
             isValid = false;
         } else {
             datepicker.classList.remove("is-invalid");
@@ -57,11 +47,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (isValid) {
-            console.log('Redirecting');
             localStorage.setItem('selectedDate', dateValue);
             localStorage.setItem('selectedTime', selectedTime);
-            console.log(timeId);
-            localStorage.setItem('timeId', timeId);
             window.location.href = 'walk_out_choose_dog.html';
         }
     });
