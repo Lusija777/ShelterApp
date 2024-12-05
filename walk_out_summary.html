@@ -15,51 +15,57 @@
 <div class="container-fluid">
     <div id="navigation"></div>
     <div class="row text-center">
-        <h1>Zhrnutie údajov</h1>
-    </div>
-
-    <div class="row mb-1">
-        <div class="col-9">
-            <label>Vaše vyplnené údaje</label>
-        </div>
+        <h1>Poď sa prejsť</h1>
     </div>
 
     <div class="progress mx-3 mb-2">
         <div class="progress-bar progress-bar-striped bg-primary" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
 
+    <div class="mb-1 ps-2">
+        <label><b>Údaje o prechádzke</b></label>
+    </div>
+
+    <div id="dogInfo">
+        <!-- dog info is added here-->
+    </div>
+
+    <div class="mb-1 ps-2">
+        <label><b>Osobné údaje:</b></label>
+    </div>
+
     <!-- Zobrazenie údajov z localStorage -->
-    <div class="mb-3">
-        <label for="displayWalkId" class="form-label">Venčiarsky preukaz</label>
-        <p id="displayWalkId"></p>
-    </div>
-    <div class="mb-3">
-        <label for="displayName" class="form-label">Meno</label>
-        <p id="displayName"></p>
-    </div>
-    <div class="mb-3">
-        <label for="displaySurname" class="form-label">Priezvisko</label>
-        <p id="displaySurname"></p>
-    </div>
-    <div class="mb-3">
-        <label for="displayPhone" class="form-label">Telefónne číslo</label>
-        <p id="displayPhone"></p>
-    </div>
-    <div class="mb-3">
-        <label for="displayEmail" class="form-label">E-mail</label>
-        <p id="displayEmail"></p>
+    <div class="ps-3">
+        <div class="mb-1">
+            <div id="displayName"></div>
+        </div>
+        <div class="mb-1">
+            <div id="displayPhone"></div>
+        </div>
+        <div class="mb-4">
+            <div id="displayEmail"></div>
+        </div>
+        <div class="mb-4">
+            <div id="displayWalkId"></div>
+        </div>
     </div>
 
-    <!-- Zobrazenie hesla, ak je nastavené -->
-    <div class="mb-3" id="passwordSection">
-        <label for="displayPassword" class="form-label">Heslo</label>
-        <p id="displayPassword"></p>
-    </div>
+    <form id="permissionsForm">
+        <div class="mb-1">
+            <input type="checkbox" id="newsletter" class="form-check-input">
+            <label for="newsletter" class="form-check-label">Newsletter</label>
+        </div>
+        <div class="mb-3">
+            <input type="checkbox" id="gdpr" class="form-check-input">
+            <label for="gdpr" class="form-check-label">GDPR</label>
+        </div>
+    </form>
 
-    <!-- Možnosť vrátiť sa späť na formulár -->
+
     <div class="row" id="submitSection">
         <div class="col-12 mb-2">
-            <button id="backButton" class="btn btn-secondary btn-lg"><i class="fa-solid fa-chevron-left"></i> Späť na formulár</button>
+            <button id="backButton" class="btn btn-secondary btn-lg"><i class="fa-solid fa-chevron-left"></i></button>
+            <button id="submitButton" class="btn btn-lg btn-primary w-75">Rezervovať</button>
         </div>
     </div>
 </div>
@@ -68,6 +74,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="scripts/script.js"></script>
+<script src="scripts/database.js"></script>
+<script src="scripts/walk_out_summary.js"></script>
 
 </body>
 </html>
