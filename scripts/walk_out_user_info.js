@@ -1,3 +1,17 @@
+window.onload = function () {
+    const userData = localStorage.getItem('userData');
+
+    if (userData) {
+        const user = JSON.parse(userData);
+
+        document.getElementById('walkId').value = user.walkId || '';
+        document.getElementById('name').value = user.name || '';
+        document.getElementById('surname').value = user.surname || '';
+        document.getElementById('phone').value = user.phone || '';
+        document.getElementById('email').value = user.email || '';
+    }
+}
+
 document.getElementById('passwordToggle').addEventListener('change', function() {
     const passwordFields = document.getElementById('passwordFields');
     if (this.checked) {
@@ -65,7 +79,6 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
         password: password || null,
     };
     localStorage.setItem('userData', JSON.stringify(userData));
-    console.log('Údaje boli uložené.');
     window.location.href = 'walk_out_summary.html';
 });
 

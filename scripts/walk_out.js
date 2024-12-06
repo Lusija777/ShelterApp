@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     flatpickr("#datepicker", {
         inline: true,
-        dateFormat: "Y-m-d",
+        dateFormat: "d.m.Y",
         firstDayOfWeek: 1,
         locale: "sk",
         minDate: new Date().fp_incr(1),
@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem('selectedDate', dateValue);
             localStorage.setItem('selectedTime', selectedTime);
             localStorage.setItem('timeId', timeId);
+            localStorage.setItem('isInReservationProcess', true);
             window.location.href = 'walk_out_choose_dog.html';
         } else {
             window.scrollTo({
