@@ -27,7 +27,7 @@ body{
     color: white !important;
 }
 
-.dog-photo {
+.dog-photo, .animal-photo {
     width: 145px;
     height: 145px;
     object-fit: cover;
@@ -45,4 +45,16 @@ html, body {
 
 .container-fluid {
     flex: 1; /* This makes the content take the available space */
+}
+
+.animal-photo-detail {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.centered-list li {
+    margin: 5px 0;
 }
