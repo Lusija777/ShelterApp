@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem('selectedDate', dateValue);
             localStorage.setItem('selectedTime', selectedTime);
             localStorage.setItem('timeId', timeId);
+            localStorage.setItem('isInReservationProcess', true);
             window.location.href = 'walk_out_choose_dog.html';
         } else {
             window.scrollTo({

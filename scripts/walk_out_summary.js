@@ -1,5 +1,4 @@
-window.onload = function () {
-
+document.addEventListener('DOMContentLoaded', () => {
     const dogInfo = document.getElementById('dogInfo');
     const dogId = localStorage.getItem('selectedDogId');
     const dog = dogs.find(d => d.id === Number(dogId));
@@ -28,22 +27,36 @@ window.onload = function () {
     const userData = JSON.parse(localStorage.getItem('userData'));
     if (userData) {
         // Zobrazenie údajov na stránke
-        document.getElementById('displayWalkId').textContent = userData.idNumber || 'Venčiarsky preukaz Vám bude vydaný na mieste';
+        document.getElementById('displayWalkId').textContent = userData.idNumber || 'Venčiarsky preukaz Vám bude vydaný na mieste.';
         document.getElementById('displayName').textContent = userData.name + ' ' + userData.surname || 'Nebol zadaný';
         document.getElementById('displayPhone').textContent = userData.phone || 'Nebol zadaný';
         document.getElementById('displayEmail').textContent = userData.email || 'Nebol zadaný';
     } else {
-        alert('Údaje neboli nájdené.');
+        window.alert('Údaje neboli nájdené.');
     }
-};
+});
 
+window.addEventListener('pageshow', () => {
+    const isInReservationProcess = localStorage.getItem('isInReservationProcess') === 'true';
 
-// Ak sa klikne na tlačidlo "Späť na formulár", vráti nás to na predchádzajúcu stránku
+    if (!isInReservationProcess) {
+        redirectToPage('walk');
+    }
+});
+
 document.getElementById('backButton').addEventListener('click', function() {
-    window.history.back();
+    history.back();
 });
 
 document.getElementById('submitButton').addEventListener('click', function() {
-    localStorage.clear();
-    window.location.href = 'walk_out_reserved.html';
+    const gdprCheckbox = document.getElementById("gdpr-checkbox");
+    gdprCheckbox.classList.remove("is-invalid");
+
+    if (!gdprCheckbox.checked) {
+        gdprCheckbox.classList.add("is-invalid");
+    }
+    else {
+        localStorage.clear();
+        window.location.href = 'walk_out_reserved.html';
+    }
 });

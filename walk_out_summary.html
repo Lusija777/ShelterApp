@@ -23,7 +23,8 @@
     </div>
 
     <div class="mb-1 ps-2">
-        <label><b>Údaje o prechádzke</b></label>
+        <label><b>Údaje o prechádzke:</b></label>
+        <hr class="mt-0" width="50%">
     </div>
 
     <div id="dogInfo">
@@ -32,6 +33,7 @@
 
     <div class="mb-1 ps-2">
         <label><b>Osobné údaje:</b></label>
+        <hr class="mt-0" width="50%">
     </div>
 
     <!-- Zobrazenie údajov z localStorage -->
@@ -42,7 +44,7 @@
         <div class="mb-1">
             <div id="displayPhone"></div>
         </div>
-        <div class="mb-4">
+        <div class="mb-2">
             <div id="displayEmail"></div>
         </div>
         <div class="mb-4">
@@ -51,19 +53,25 @@
     </div>
 
     <form id="permissionsForm">
-        <div class="mb-1">
-            <input type="checkbox" id="newsletter" class="form-check-input">
-            <label for="newsletter" class="form-check-label">Newsletter</label>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="gdpr-checkbox" name="gdpr" required>
+            <label class="form-check-label" for="gdpr-checkbox">
+                <small>Súhlasím so spracovaním mojich osobných údajov v súlade s <a href="https://www.justice.gov.sk/ministerstvo/ochrana-osobnych-udajov-ms-sr/" target="_blank">Oznámením o ochrane osobných údajov</a>.</small>
+            </label>
         </div>
-        <div class="mb-3">
-            <input type="checkbox" id="gdpr" class="form-check-input">
-            <label for="gdpr" class="form-check-label">GDPR</label>
+
+        <!-- Súhlas s newsletterom -->
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="newsletter-checkbox" name="newsletter">
+            <label class="form-check-label" for="newsletter-checkbox">
+                <small>Chcem dostávať newsletter s novinkami a informáciami o útulku.</small>
+            </label>
         </div>
     </form>
 
 
     <div class="row" id="submitSection">
-        <div class="col-12 mb-2">
+        <div class="col-12 mb-2 mx-3">
             <button id="backButton" class="btn btn-secondary btn-lg"><i class="fa-solid fa-chevron-left"></i></button>
             <button id="submitButton" class="btn btn-lg btn-primary w-75">Rezervovať</button>
         </div>
