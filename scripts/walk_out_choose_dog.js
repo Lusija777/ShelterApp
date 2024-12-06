@@ -106,7 +106,7 @@ function renderPagination(totalDogs, currentPage) {
 function selectDog(dogId) {
     if (selectedDogId === dogId) {
         selectedDogId = null;
-        document.querySelectorAll('.dog-card').forEach(card => {
+        document.querySelectorAll('-card').forEach(card => {
             card.classList.remove('border', 'border-3', 'rounded', 'bg-primary', 'bg-opacity-10', 'border-primary');
         });
     } else {

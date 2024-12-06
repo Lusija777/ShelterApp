@@ -1,75 +1,108 @@
-let selectedDogId = null;
-const dogsPerPage = 4; // Number of dogs to show per page
-let currentPage = 1;
+let selectedAnimalId = null;
+const animalsPerPage = 4; // Number of animals to show per page
+let currentDogPage = 1;
+let currentCatPage = 1;
 
-var filteredDogs = dogs;
+let filteredDogs = dogs;
+let filteredCats = cats;
 const applyFilterButton = document.getElementById("applyFilter");
+const animalTypeSelector = document.getElementById("animalTypeSelector"); // Select dogs or cats
 
-document.addEventListener('DOMContentLoaded', function() {
-    let selectedDogId = localStorage.getItem('selectedDogId');
-    console.log(selectedDogId);
-    if (selectedDogId) {
-        selectDog(selectedDogId);
+document.addEventListener('DOMContentLoaded', function () {
+    let selectedAnimalId = localStorage.getItem('selectedAnimalId');
+    console.log(selectedAnimalId);
+    if (selectedAnimalId) {
+        selectAnimal(selectedAnimalId);
     }
 });
 
 applyFilterButton.addEventListener("click", () => {
     const sex = document.getElementById("sex").value;
     const size = document.getElementById("size").value;
+    const animalType = animalTypeSelector.value;
 
-    // Filter Logic
-    filteredDogs = dogs.filter(dog => {
-        return (!sex || dog.sex === sex) && (!size || dog.size === size);
-    });
+    if (animalType === 'dog') {
+        filteredDogs = dogs.filter(dog => {
+            return (!sex || dog.sex === sex) && (!size || dog.size === size);
+        });
+        currentDogPage = 1; // Reset stránkovania
+        renderAnimals(currentDogPage, 'dog');
+        renderPagination(filteredDogs.length, currentDogPage);
+    } else if (animalType === 'cat') {
+        filteredCats = cats.filter(cat => {
+            return (!sex || cat.sex === sex) && (!size || cat.size === size);
+        });
+        currentCatPage = 1; // Reset stránkovania
+        renderAnimals(currentCatPage, 'cat');
+        renderPagination(filteredCats.length, currentCatPage);
+    }
 
-    // Render Filtered Dogs
-    renderDogs(1);
+    // Skryjeme modálne okno
     const filterModal = bootstrap.Modal.getInstance(document.getElementById("filterModal"));
     filterModal.hide();
 });
 
-function renderDogs(page = 1) {
-    const start = (page - 1) * dogsPerPage;
-    const end = page * dogsPerPage;
-    const dogsToDisplay = filteredDogs.slice(start, end);
 
-    const dogSelectionGrid = document.getElementById('dogSelectionGrid');
-    dogSelectionGrid.innerHTML = '';
+function selectAnimalType(animalType) {
+    currentAnimalType = animalType;
 
-    dogsToDisplay.forEach(dog => {
-        const dogCard = document.createElement('div');
-        dogCard.classList.add('col-6', 'dog-card');
-        dogCard.innerHTML = `
-            <div class="card dog-card mb-3 py-1 pe-2 ps-1" data-id="${dog.id}" onclick="selectDog(${dog.id})">
-                <img src="${dog.photo}" class="dog-photo card-img-top" alt="${dog.name}">
-                <div class="dog-info text-center border rounded-pill mt-1 border-secondary">
-                    <strong>${dog.name}</strong><br>
-                    <small>veľkosť: ${dog.size}, pohlavie: ${dog.sex}</small><br>
-                    <small>vek: ${dog.age}</small>
+    if (animalType === 'dog') {
+        document.getElementById('dogButton').classList.add('active');
+        document.getElementById('catButton').classList.remove('active');
+    } else if (animalType === 'cat') {
+        document.getElementById('catButton').classList.add('active');
+        document.getElementById('dogButton').classList.remove('active');
+    }
+
+    renderAnimals(1, currentAnimalType);
+}
+
+function renderAnimals(page = 1, animalType = 'dog') {
+    const animals = animalType === 'dog' ? filteredDogs : filteredCats;
+    const start = (page - 1) * animalsPerPage;
+    const end = page * animalsPerPage;
+    const animalsToDisplay = animals.slice(start, end);
+
+    const animalSelectionGrid = document.getElementById('animalSelectionGrid');
+    animalSelectionGrid.innerHTML = '';
+
+    animalsToDisplay.forEach(animal => {
+        const animalCard = document.createElement('div');
+        animalCard.classList.add('col-6', 'animal-card');
+        animalCard.innerHTML = `
+            <div class="card animal-card mb-3 py-1 pe-2 ps-1" data-id="${animal.id}" onclick="selectAnimal(${animal.id}, '${animalType}')">
+                <img src="${animal.photo}" class="animal-photo card-img-top" alt="${animal.name}">
+                <div class="animal-info text-center border rounded-pill mt-1 border-secondary">
+                    <strong>${animal.name}</strong><br>
+                    <small>veľkosť: ${animal.size}, pohlavie: ${animal.sex}</small><br>
+                    <small>vek: ${animal.age}</small><br>
+                    <button class="btn btn-primary btn-sm mt-2" onclick="showAnimalDetails(${animal.id}, '${animalType}')">Detail</button>
                 </div>
             </div>
         `;
-        dogSelectionGrid.appendChild(dogCard);
+        animalSelectionGrid.appendChild(animalCard);
     });
 
-    renderPagination(filteredDogs.length, page);
+    // Aktualizujeme stránkovanie
+    renderPagination(animals.length, page);
 }
 
-function renderPagination(totalDogs, currentPage) {
+
+function renderPagination(totalAnimals, currentPage) {
     const pagination = document.getElementById('pagination');
     pagination.innerHTML = '';
 
-    const totalPages = Math.ceil(totalDogs / dogsPerPage);
+    const totalPages = Math.ceil(totalAnimals / animalsPerPage);
 
-    // Validate currentPage to ensure it is within bounds
+    // Uistíme sa, že aktuálna stránka je v platných medziach
     if (currentPage < 1) currentPage = 1;
     if (currentPage > totalPages) currentPage = totalPages;
 
-    // Create Previous Button
+    // Vytvoríme tlačidlo na predchádzajúcu stránku
     const prevItem = document.createElement('li');
     prevItem.classList.add('page-item');
     if (currentPage === 1) {
-        prevItem.classList.add('disabled'); // Disable button on first page
+        prevItem.classList.add('disabled'); // Zakážeme tlačidlo na prvej stránke
     }
     prevItem.innerHTML = `
         <a class="page-link" href="#" onclick="goToPage(${currentPage - 1})" aria-label="Previous">
@@ -78,22 +111,22 @@ function renderPagination(totalDogs, currentPage) {
     `;
     pagination.appendChild(prevItem);
 
-    // Create Page Numbers
+    // Vytvoríme číslovanie strán
     for (let i = 1; i <= totalPages; i++) {
         const pageItem = document.createElement('li');
         pageItem.classList.add('page-item');
         if (currentPage === i) {
-            pageItem.classList.add('active'); // Highlight current page
+            pageItem.classList.add('active'); // Označíme aktívnu stránku
         }
         pageItem.innerHTML = `<a class="page-link" href="#" onclick="goToPage(${i})">${i}</a>`;
         pagination.appendChild(pageItem);
     }
 
-    // Create Next Button
+    // Vytvoríme tlačidlo na ďalšiu stránku
     const nextItem = document.createElement('li');
     nextItem.classList.add('page-item');
     if (currentPage === totalPages) {
-        nextItem.classList.add('disabled'); // Disable button on last page
+        nextItem.classList.add('disabled'); // Zakážeme tlačidlo na poslednej stránke
     }
     nextItem.innerHTML = `
         <a class="page-link" href="#" onclick="goToPage(${currentPage + 1})" aria-label="Next">
@@ -103,50 +136,33 @@ function renderPagination(totalDogs, currentPage) {
     pagination.appendChild(nextItem);
 }
 
-function selectDog(dogId) {
-    if (selectedDogId === dogId) {
-        selectedDogId = null;
-        document.querySelectorAll('.dog-card').forEach(card => {
-            card.classList.remove('border', 'border-3', 'rounded', 'bg-primary', 'bg-opacity-10', 'border-primary');
-        });
-    } else {
-        selectedDogId = dogId;
-        document.querySelectorAll('.dog-card').forEach(card => {
-            card.classList.remove('border', 'border-3', 'rounded', 'bg-primary', 'bg-opacity-10', 'border-primary');
-        });
-        const selectedCard = document.querySelector(`[data-id="${dogId}"]`);
-        if (selectedCard) {
-            selectedCard.classList.add('border', 'border-3', 'rounded', 'bg-primary', 'bg-opacity-10', 'border-primary');
-        }
-    }
-}
-
-document.getElementById('dogFilter').addEventListener('input', function() {
-    renderDogs(currentPage, this.value);
-});
-document.getElementById('submitButton').addEventListener('click', function() {
-    if (selectedDogId) {
-        document.querySelector(".invalid-feedback").style.display = "none";
-        localStorage.setItem('selectedDogId', selectedDogId);
-        window.location.href = 'walk_out_user_info.html';
-    }
-    else {
-        document.querySelector(".invalid-feedback").style.display = "block";
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth' // Use 'auto' for instant scrolling
-        });
-    }
-});
-
-document.getElementById('backButton').addEventListener('click', function() {
-    history.back();
-});
-
 function goToPage(page) {
-    currentPage = page;
-    renderDogs(page);
+    const animalType = animalTypeSelector.value;
+    if (animalType === 'dog') {
+        currentDogPage = page;
+        renderAnimals(currentDogPage, 'dog');
+        renderPagination(filteredDogs.length, currentDogPage);
+    } else if (animalType === 'cat') {
+        currentCatPage = page;
+        renderAnimals(currentCatPage, 'cat');
+        renderPagination(filteredCats.length, currentCatPage);
+    }
 }
 
-renderDogs();
+
+
+function showAnimalDetails(animalId, animalType) {
+    const animal = animalType === 'dog' ? dogs.find(dog => dog.id === animalId) : cats.find(cat => cat.id === animalId);
+    localStorage.setItem('selectedAnimal', JSON.stringify(animal));
+    window.location.href = 'detail.html';
+}
+
+// Initialize rendering
+animalTypeSelector.addEventListener('change', function () {
+    const selectedType = this.value;
+    renderAnimals(1, selectedType);
+});
+
+// Načítanie stránok pre psy a mačky na prvej stránke
+renderAnimals(1, 'dog');
 

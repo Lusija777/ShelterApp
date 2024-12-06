@@ -30,7 +30,7 @@ function removeDataInLocalStorageForWalk() {
 function redirectToPage(page) {
     switch (page) {
         case 'adopt':
-            window.location.href = 'not_implemented.html';
+            window.location.href = 'catalog.html';
             break;
         case 'walk':
             removeDataInLocalStorageForWalk();
