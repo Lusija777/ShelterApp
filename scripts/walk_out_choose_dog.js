@@ -7,7 +7,6 @@ const applyFilterButton = document.getElementById("applyFilter");
 
 document.addEventListener('DOMContentLoaded', function() {
     let selectedDogId = localStorage.getItem('selectedDogId');
-    console.log(selectedDogId);
     if (selectedDogId) {
         selectDog(selectedDogId);
     }
@@ -106,7 +105,7 @@ function renderPagination(totalDogs, currentPage) {
 function selectDog(dogId) {
     if (selectedDogId === dogId) {
         selectedDogId = null;
-        document.querySelectorAll('-card').forEach(card => {
+        document.querySelectorAll('.card').forEach(card => {
             card.classList.remove('border', 'border-3', 'rounded', 'bg-primary', 'bg-opacity-10', 'border-primary');
         });
     } else {

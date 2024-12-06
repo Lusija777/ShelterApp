@@ -1,64 +1,65 @@
 let selectedAnimalId = null;
 const animalsPerPage = 4; // Number of animals to show per page
-let currentDogPage = 1;
-let currentCatPage = 1;
+let currentPage = 1;
 
-let filteredDogs = dogs;
-let filteredCats = cats;
+let pets = dogs;
+let animalType = 'dog';
 const applyFilterButton = document.getElementById("applyFilter");
-const animalTypeSelector = document.getElementById("animalTypeSelector"); // Select dogs or cats
 
-document.addEventListener('DOMContentLoaded', function () {
-    let selectedAnimalId = localStorage.getItem('selectedAnimalId');
-    console.log(selectedAnimalId);
-    if (selectedAnimalId) {
-        selectAnimal(selectedAnimalId);
+const btnradiodogs = document.getElementById('btnradio1');
+const btnradiocats = document.getElementById('btnradio2');
+
+// Add event listeners to the radio buttons
+btnradiodogs.addEventListener('change', () => {
+    if (btnradiodogs.checked) {
+        pets = dogs;
+        animalType = 'dog';
+        updateFilterOptions(animalType);
+        renderAnimals(1);
     }
 });
 
+btnradiocats.addEventListener('change', () => {
+    if (btnradiocats.checked) {
+        pets = cats;
+        animalType = 'cat';
+        updateFilterOptions(animalType);
+        renderAnimals(1);
+    }
+});
+
+function updateFilterOptions(animalType) {
+    const sexSelect = document.getElementById('sex');
+
+    sexSelect.innerHTML = '';
+    sexSelect.innerHTML = '<option value="">Všetko</option>';
+
+    // Update options based on animal type
+    if (animalType === 'dog') {
+        sexSelect.innerHTML += '<option value="pes">Pes</option>';
+        sexSelect.innerHTML += '<option value="fenka">Fenka</option>';
+
+    } else if (animalType === 'cat') {
+        sexSelect.innerHTML += '<option value="kocúr">Kocúr</option>';
+        sexSelect.innerHTML += '<option value="mačka">Mačka</option>';
+    }
+}
 applyFilterButton.addEventListener("click", () => {
     const sex = document.getElementById("sex").value;
     const size = document.getElementById("size").value;
-    const animalType = animalTypeSelector.value;
 
-    if (animalType === 'dog') {
-        filteredDogs = dogs.filter(dog => {
-            return (!sex || dog.sex === sex) && (!size || dog.size === size);
-        });
-        currentDogPage = 1; // Reset stránkovania
-        renderAnimals(currentDogPage, 'dog');
-        renderPagination(filteredDogs.length, currentDogPage);
-    } else if (animalType === 'cat') {
-        filteredCats = cats.filter(cat => {
-            return (!sex || cat.sex === sex) && (!size || cat.size === size);
-        });
-        currentCatPage = 1; // Reset stránkovania
-        renderAnimals(currentCatPage, 'cat');
-        renderPagination(filteredCats.length, currentCatPage);
-    }
+    pets = pets.filter(pet => {
+        return (!sex || pet.sex === sex) && (!size || pet.size === size);
+    });
+    renderAnimals(1);
 
     // Skryjeme modálne okno
     const filterModal = bootstrap.Modal.getInstance(document.getElementById("filterModal"));
     filterModal.hide();
 });
 
-
-function selectAnimalType(animalType) {
-    currentAnimalType = animalType;
-
-    if (animalType === 'dog') {
-        document.getElementById('dogButton').classList.add('active');
-        document.getElementById('catButton').classList.remove('active');
-    } else if (animalType === 'cat') {
-        document.getElementById('catButton').classList.add('active');
-        document.getElementById('dogButton').classList.remove('active');
-    }
-
-    renderAnimals(1, currentAnimalType);
-}
-
-function renderAnimals(page = 1, animalType = 'dog') {
-    const animals = animalType === 'dog' ? filteredDogs : filteredCats;
+function renderAnimals(page = 1) {
+    const animals = pets;
     const start = (page - 1) * animalsPerPage;
     const end = page * animalsPerPage;
     const animalsToDisplay = animals.slice(start, end);
@@ -70,9 +71,9 @@ function renderAnimals(page = 1, animalType = 'dog') {
         const animalCard = document.createElement('div');
         animalCard.classList.add('col-6', 'animal-card');
         animalCard.innerHTML = `
-            <div class="card animal-card mb-3 py-1 pe-2 ps-1" data-id="${animal.id}" onclick="selectAnimal(${animal.id}, '${animalType}')">
+            <div class="card animal-card mb-3 py-1 pe-2 ps-1" data-id="${animal.id}" onclick="showAnimalDetails(${animal.id}, '${animalType}')">
                 <img src="${animal.photo}" class="animal-photo card-img-top" alt="${animal.name}">
-                <div class="animal-info text-center border rounded-pill mt-1 border-secondary">
+                <div class="animal-info text-center border rounded-5 mt-1 border-secondary" style="overflow: hidden; padding: 10px;">
                     <strong>${animal.name}</strong><br>
                     <small>veľkosť: ${animal.size}, pohlavie: ${animal.sex}</small><br>
                     <small>vek: ${animal.age}</small><br>
@@ -137,18 +138,9 @@ function renderPagination(totalAnimals, currentPage) {
 }
 
 function goToPage(page) {
-    const animalType = animalTypeSelector.value;
-    if (animalType === 'dog') {
-        currentDogPage = page;
-        renderAnimals(currentDogPage, 'dog');
-        renderPagination(filteredDogs.length, currentDogPage);
-    } else if (animalType === 'cat') {
-        currentCatPage = page;
-        renderAnimals(currentCatPage, 'cat');
-        renderPagination(filteredCats.length, currentCatPage);
-    }
+    currentPage = page;
+    renderAnimals(page);
 }
-
 
 
 function showAnimalDetails(animalId, animalType) {
@@ -157,12 +149,7 @@ function showAnimalDetails(animalId, animalType) {
     window.location.href = 'detail.html';
 }
 
-// Initialize rendering
-animalTypeSelector.addEventListener('change', function () {
-    const selectedType = this.value;
-    renderAnimals(1, selectedType);
-});
-
 // Načítanie stránok pre psy a mačky na prvej stránke
-renderAnimals(1, 'dog');
+updateFilterOptions(animalType);
+renderAnimals(1);
 

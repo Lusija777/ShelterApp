@@ -17,26 +17,38 @@
 <div class="container-fluid">
     <div id="navigation"></div>
     <div class="row text-center">
-        <h1>Naši útulkáči ♥</h1>
+        <h1>Naši útulkáči <i class="fa-solid fa-heart"></i></h1>
     </div>
 
-    <div id="animalDetail" class="animal-detail">
-        <img id="animalImage" class="animal-photo-detail" alt="Zvieratko">
-        <div class="card-body">
-            <h2 id="animalName" style="font-weight: bold;"></h2>
-
-            <ul  class="centered-list">
-                <li><strong>veľkosť:</strong> <span id="animalSize"></span></li>
-                <li><strong>pohlavie:</strong> <span id="animalSex"></span></li>
-                <li><strong>vek:</strong> <span id="animalAge"></span></li>
-                <li><strong>v útulku je:</strong> <span id="animalShelterDuration"></span></li>
-            </ul>
-
-            <p id="animalDescription" class="card-text"></p>
-            <a href="catalog.html" class="btn btn-primary">Späť</a>
-            <a href="not_implemented.html" class="btn btn-primary">Vezmem ťa na prechádzku</a>
+    <div id="animalDetail" class="row justify-content-center text-center mb-3">
+        <div class="col-12 text-center">
+            <!-- Center the image -->
+            <img id="animalImage" class="animal-photo-detail img-fluid" alt="Zvieratko">
         </div>
 
+        <div class="col-12 text-center">
+            <!-- Card body with centered text -->
+            <div class="card-body">
+                <h2 id="animalName" style="font-weight: bold;"></h2>
+
+                <ul class="centered-list list-unstyled">
+                    <li><strong>veľkosť:</strong> <span id="animalSize"></span></li>
+                    <li><strong>pohlavie:</strong> <span id="animalSex"></span></li>
+                    <li><strong>vek:</strong> <span id="animalAge"></span></li>
+                    <li><strong>v útulku je:</strong> <span id="animalShelterDuration"></span></li>
+                </ul>
+
+                <p id="animalDescription" class="card-text"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="submitSection">
+        <div class="col-12 mb-2">
+            <button id="backButton" class="btn btn-secondary btn-lg"><i class="fa-solid fa-chevron-left"></i></button>
+            <button id="submitButton" class="btn btn-lg btn-primary">Vezmem ťa na prechádzku</button>
+
+        </div>
     </div>
 </div>
 

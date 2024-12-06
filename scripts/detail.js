@@ -14,3 +14,11 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = 'catalog.js.html';
     }
 });
+
+document.getElementById('submitButton').addEventListener('click', function() {
+    redirectToPage('');
+});
+
+document.getElementById('backButton').addEventListener('click', function() {
+    history.back();
+});
