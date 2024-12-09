@@ -29,31 +29,44 @@ btnradiocats.addEventListener('change', () => {
 });
 
 function updateFilterOptions(animalType) {
-    const sexSelect = document.getElementById('sex');
+    let checksexmale = document.getElementsByClassName('checksexmale');
+    let checksexfemale = document.getElementsByClassName('checksexfemale');
 
-    sexSelect.innerHTML = '';
-    sexSelect.innerHTML = '<option value="">Všetko</option>';
+    checksexmale.innerHTML = '';
+    checksexfemale.innerHTML = '';
 
     // Update options based on animal type
     if (animalType === 'dog') {
-        sexSelect.innerHTML += '<option value="pes">Pes</option>';
-        sexSelect.innerHTML += '<option value="fenka">Fenka</option>';
+        checksexmale.innerHTML += '<input class="form-check-input" type="checkbox" id="pes" value="pes">\n' +
+            '                                <label for="pes" class="form-check-label">Pes</label>';
+        checksexfemale.innerHTML += '<input class="form-check-input" type="checkbox" id="fenka" value="fenka">\n' +
+            '                                <label for="fenka" class="form-check-label">Fenka</label>';
 
     } else if (animalType === 'cat') {
-        sexSelect.innerHTML += '<option value="kocúr">Kocúr</option>';
-        sexSelect.innerHTML += '<option value="mačka">Mačka</option>';
+        checksexmale.innerHTML += '<input class="form-check-input" type="checkbox" id="kocur" value="kocur">\n' +
+            '                                <label for="kocur" class="form-check-label">Kocúr</label>';
+        checksexfemale.innerHTML += '<input class="form-check-input" type="checkbox" id="macka" value="macka">\n' +
+            '                                <label for="macka" class="form-check-label">Mačka</label>';
     }
 }
 applyFilterButton.addEventListener("click", () => {
-    const sex = document.getElementById("sex").value;
-    const size = document.getElementById("size").value;
+    let sexes = document.querySelectorAll(('#sex input'));
+    let checkedSexes = Array.from(sexes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
 
-    pets = pets.filter(pet => {
-        return (!sex || pet.sex === sex) && (!size || pet.size === size);
+    let sizes = document.querySelectorAll(('#size input'));
+    let checkedSizes = Array.from(sizes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+
+    // Filter Logic
+    let toFilterPets = animalType === 'dog' ? dogs : cats;
+    pets = toFilterPets.filter(pet => {
+        if (checkedSizes.length === 0 && checkedSexes.length === 0) return true;
+        if (checkedSizes.length === 0) return checkedSexes.includes(pet.sex);
+        if (checkedSexes.length === 0) return checkedSizes.includes(pet.size);
+        return checkedSexes.includes(pet.sex) && checkedSizes.includes(pet.size);
     });
-    renderAnimals(1);
 
-    // Skryjeme modálne okno
+    // Render Filtered Dogs
+    renderAnimals(1);
     const filterModal = bootstrap.Modal.getInstance(document.getElementById("filterModal"));
     filterModal.hide();
 });
