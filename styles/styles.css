@@ -58,3 +58,18 @@ html, body {
 .centered-list li {
     margin: 5px 0;
 }
+.card_index {
+    text-align: center; /* Zarovná text na stred */
+}
+
+
+.card_index h4, h3 {
+    font-weight: bold;
+    text-align: center;
+}
+
+.card_index img {
+    width: 300px; /* Šírka obrázka */
+    height: 300px; /* Výška obrázka */
+    margin-right: 15px; /* Medzera medzi obrázkom a textom */
+}
