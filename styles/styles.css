@@ -58,6 +58,10 @@ html, body {
 .centered-list li {
     margin: 5px 0;
 }
+
+.card-blog {
+    border:1px solid #343a40; !important;
+}
 .card_index {
     text-align: center; /* Zarovná text na stred */
 }
