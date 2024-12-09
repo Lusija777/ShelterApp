@@ -42,6 +42,9 @@ function redirectToPage(page) {
         case 'contact':
             window.location.href = 'not_implemented.html';
             break;
+        case 'index':
+            window.location.href = 'index.html';
+            break;
         default:
             window.location.href = 'not_implemented.html';
     }

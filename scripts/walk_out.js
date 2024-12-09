@@ -61,7 +61,15 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem('selectedTime', selectedTime);
             localStorage.setItem('timeId', timeId);
             localStorage.setItem('isInReservationProcess', true);
-            window.location.href = 'walk_out_choose_dog.html';
+
+            let catalogSelectedDogId = localStorage.getItem('catalogSelectedDogId');
+            if (catalogSelectedDogId) {
+                localStorage.setItem('selectedDogId', catalogSelectedDogId);
+                window.location.href = 'walk_out_user_info.html';
+            }
+            else{
+                window.location.href = 'walk_out_choose_dog.html';
+            }
         } else {
             window.scrollTo({
                 top: 0,

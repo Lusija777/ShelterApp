@@ -40,7 +40,7 @@ window.addEventListener('pageshow', () => {
     const isInReservationProcess = localStorage.getItem('isInReservationProcess') === 'true';
 
     if (!isInReservationProcess) {
-        redirectToPage('walk');
+        redirectToPage('index');
     }
 });
 
