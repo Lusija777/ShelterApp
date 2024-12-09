@@ -26,12 +26,13 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
     event.preventDefault();
     const form = this;
 
-    // Skrytie Bootstrap validácie, pokiaľ bude kontrola neplatná
-    if (!form.checkValidity()) {
-        event.stopPropagation();
-        form.classList.add('was-validated');
-        return;
-    }
+    document.querySelectorAll('.invalid-feedback').forEach(element => {
+        element.classList.remove('d-block');
+        element.classList.add('d-none');
+    });
+    document.querySelectorAll('.is-invalid').forEach(element => {
+        element.classList.remove('is-invalid');
+    });
 
     const idNumber = document.getElementById('walkId').value.trim();
     const name = document.getElementById('name').value.trim();
@@ -40,9 +41,26 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
+    const checkbox = document.getElementById('passwordToggle');
 
     let hasError = false;
 
+    if (!name) {
+        showError('name', 'Meno je povinné.');
+        hasError = true;
+    }
+    if (!surname) {
+        showError('surname', 'Priezvisko je povinné.');
+        hasError = true;
+    }
+    if (!phone) {
+        showError('phone', 'Telefónne číslo je povinné.');
+        hasError = true;
+    }
+    if (!email) {
+        showError('email', 'E-mail je povinný.');
+        hasError = true;
+    }
     // Kontrola zhodnosti venčiarskeho preukazu
     if (idNumber) {
         const user = users.find(u => u.idNumber === idNumber);
@@ -51,6 +69,17 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
             hasError = true;
         } else if (user.name !== name || user.surname !== surname || user.phone !== phone || user.email !== email) {
             showError('walkId', 'Údaje sa nezhodujú s existujúcim preukazom.');
+            hasError = true;
+        }
+    }
+
+    if (checkbox.checked){
+        if (!password) {
+            showError('password', 'Heslo je povinné.');
+            hasError = true;
+        }
+        if (!confirmPassword) {
+            showError('confirmPassword', 'Potvrdenie hesla je povinný.');
             hasError = true;
         }
     }
@@ -67,7 +96,6 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
     }
 
     if (hasError) {
-        form.classList.remove('was-validated');
         return;
     }
     const userData = {
@@ -85,11 +113,11 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
 // Funkcia na zobrazenie chýb
 function showError(inputId, message) {
     const inputElement = document.getElementById(inputId);
-    const errorMessage = document.createElement('div');
-    errorMessage.className = 'invalid-feedback d-block';
+    const errorMessage = inputElement.parentElement.querySelector('.invalid-feedback');
+    errorMessage.classList.remove('d-none');
+    errorMessage.classList.add('d-block');
     errorMessage.textContent = message;
     inputElement.classList.add('is-invalid');
-    inputElement.parentNode.appendChild(errorMessage);
 }
 
 document.getElementById('backButton').addEventListener('click', function() {
