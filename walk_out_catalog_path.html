@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="sk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labkáči App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body>
+
+<div class="container-fluid">
+    <div id="navigation"></div>
+    <div class="row text-center">
+        <h1>Poď sa prejsť</h1>
+        <p class="small">Tu si rezervujete prechádzku s jedným z našich psíkov. Prechádzka trvá maximálne 2 hodiny.</p>
+    </div>
+    <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-md-6">
+            <h5>Rezervačný formulár:</h5>
+            <hr class="mt-0" width="50%">
+            <div class="progress mx-3">
+                <div class="progress-bar progress-bar-striped bg-primary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div class="form">
+                <div class="form-group mt-3">
+                    <label>Vyberte dátum prechádzky: *</label>
+                    <div id="datepicker"></div>
+                    <div class="invalid-feedback">
+                        Prosím, vyberte si dátum.
+                    </div>
+                </div>
+                <div class="form-group mt-3">
+                    <label>Vyberte čas prechádzky: *</label>
+                    <div class="row" id="time">
+                        <div class="col-4">
+                            <button id="time-10" class="btn btn-outline-primary w-100">10:00</button>
+                        </div>
+                        <div class="col-4">
+                            <button id="time-11" class="btn btn-outline-primary w-100">11:00</button>
+                        </div>
+                        <div class="col-4">
+                            <button id="time-12" class="btn btn-outline-primary w-100">12:00</button>
+                        </div>
+                        <div class="col-4 mt-2">
+                            <button id="time-13" class="btn btn-outline-primary w-100">13:00</button>
+                        </div>
+                        <div class="col-4 mt-2">
+                            <button id="time-14" class="btn btn-outline-primary w-100">14:00</button>
+                        </div>
+                        <div class="col-4 mt-2">
+                            <button id="time-15" class="btn btn-outline-primary w-100">15:00</button>
+                        </div>
+                        <div class="invalid-feedback">
+                            Prosím, vyberte si čas.
+                        </div>
+                    </div>
+                </div>
+                <div class="text-muted small">* je označený povinný údaj</div>
+                <div class="col-12">
+                    <button class="btn btn-primary btn-lg mt-3 mb-2 w-100" type="submit" id="submit">Pokračovať</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div id="footer"></div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/sk.js"></script>
+<script src="scripts/database.js"></script>
+<script src="scripts/walk_out_catalog_path.js"></script>
+<script src="scripts/script.js"></script>
+</body>
+</html>

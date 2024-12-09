@@ -1,3 +1,4 @@
+let selectedDogId = null;
 document.addEventListener('DOMContentLoaded', function () {
     const animal = JSON.parse(localStorage.getItem('selectedAnimal'));
 
@@ -15,10 +16,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+
+
 document.getElementById('submitButton').addEventListener('click', function() {
-    redirectToPage('');
+    
+    window.location.href = 'walk_out_catalog_path.html';
+    
+    
 });
 
+
 document.getElementById('backButton').addEventListener('click', function() {
+    
     history.back();
 });

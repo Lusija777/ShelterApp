@@ -48,35 +48,22 @@
                 </div>
                 <div class="modal-body">
                     <form id="filterForm">
-
-                        <div class="mb-3" id="sex">
-                            <label class="form-label">Pohlavie</label>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="pes" value="pes">
-                                <label for="pes" class="form-check-label">Pes</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="fenka" value="fenka">
-                                <label for="fenka" class="form-check-label">Fenka</label>
-                            </div>
+                        <div class="mb-3">
+                            <label for="sex" class="form-label">Pohlavie</label>
+                            <select id="sex" class="form-select">
+                                <option value="">Všetko</option>
+                                <option value="pes">Pes</option>
+                                <option value="fenka">Fenka</option>
+                            </select>
                         </div>
-
-                        <div class="mb-3" id="size">
-                            <label class="form-label">Veľkosť</label>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="S" value="malá" name="S">
-                                <label for="S" class="form-check-label">Malá</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="M" value="stredná" name="M">
-                                <label for="M" class="form-check-label">Stredná</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="L" value="veľká" name="L">
-                                <label for="L" class="form-check-label">Veľká</label>
-                            </div>
+                        <div class="mb-3">
+                            <label for="size" class="form-label">Veľkosť</label>
+                            <select id="size" class="form-select">
+                                <option value="">Všetko</option>
+                                <option value="malá">Malá</option>
+                                <option value="stredná">Stredná</option>
+                                <option value="veľká">Veľká</option>
+                            </select>
                         </div>
                     </form>
                 </div>
@@ -87,6 +74,7 @@
             </div>
         </div>
     </div>
+
     <div class="invalid-feedback">
         Prosím, vyberte si psíka z ponuky.
     </div>
