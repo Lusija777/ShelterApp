@@ -13,12 +13,18 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 applyFilterButton.addEventListener("click", () => {
-    const sex = document.getElementById("sex").value;
-    const size = document.getElementById("size").value;
+    let sexes = document.querySelectorAll(('#sex input'));
+    let checkedSexes = Array.from(sexes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+
+    let sizes = document.querySelectorAll(('#size input'));
+    let checkedSizes = Array.from(sizes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
 
     // Filter Logic
     filteredDogs = dogs.filter(dog => {
-        return (!sex || dog.sex === sex) && (!size || dog.size === size);
+        if (checkedSizes.length === 0 && checkedSexes.length === 0) return true;
+        if (checkedSizes.length === 0) return checkedSexes.includes(dog.sex);
+        if (checkedSexes.length === 0) return checkedSizes.includes(dog.size);
+        return checkedSexes.includes(dog.sex) && checkedSizes.includes(dog.size);
     });
 
     // Render Filtered Dogs
