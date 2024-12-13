@@ -29,8 +29,8 @@ btnradiocats.addEventListener('change', () => {
 });
 
 function updateFilterOptions(animalType) {
-    let checksexmale = document.getElementsByClassName('checksexmale');
-    let checksexfemale = document.getElementsByClassName('checksexfemale');
+    let checksexmale = document.getElementsByClassName('checksexmale')[0];
+    let checksexfemale = document.getElementsByClassName('checksexfemale')[0];
 
     checksexmale.innerHTML = '';
     checksexfemale.innerHTML = '';
@@ -88,7 +88,7 @@ function renderAnimals(page = 1) {
                 <img src="${animal.photo}" class="animal-photo card-img-top" alt="${animal.name}">
                 <div class="animal-info text-center border rounded-5 mt-1 border-secondary" style="overflow: hidden; padding: 10px;">
                     <strong>${animal.name}</strong><br>
-                    <small>veľkosť: ${animal.size}, pohlavie: ${animal.sex}</small><br>
+                    <small>veľkosť: ${animal.size}<br> pohlavie: ${animal.sex}</small><br>
                     <small>vek: ${animal.age}</small><br>
                     <button class="btn btn-primary btn-sm mt-2" onclick="showAnimalDetails(${animal.id}, '${animalType}')">Detail</button>
                 </div>
