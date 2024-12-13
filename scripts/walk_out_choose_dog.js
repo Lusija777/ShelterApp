@@ -11,25 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (selectedDogId) {
         selectDog(selectedDogId);
     }
-
-    // event listener to show modal with dog details when button is clicked
-    document.querySelectorAll('.dog-info-btn').forEach(button => {
-        button.addEventListener('click', function () {
-            const dogId = parseInt(this.getAttribute('data-dog-id'));
-            const dog = dogs.find(dog => dog.id === dogId);
-
-            document.getElementById('animalImage').src = dog.photo;
-            document.getElementById('animalName').textContent = dog.name;
-            document.getElementById('animalSize').textContent = dog.size;
-            document.getElementById('animalSex').textContent = dog.sex;
-            document.getElementById('animalAge').textContent = dog.age;
-            document.getElementById('animalShelterDuration').textContent = dog.shelterDuration || 'Neznáme';
-            document.getElementById('animalDescription').textContent = dog.description || 'Bez popisu';
-
-            const modal = new bootstrap.Modal(document.getElementById('detailModal'));
-            modal.show();
-        });
-    });
+    connectDetailButton();
 
 });
 
@@ -52,8 +34,29 @@ applyFilterButton.addEventListener("click", () => {
     renderDogs(1);
     const filterModal = bootstrap.Modal.getInstance(document.getElementById("filterModal"));
     filterModal.hide();
+    connectDetailButton();
 });
 
+function connectDetailButton() {
+    // event listener to show modal with dog details when button is clicked
+    document.querySelectorAll('.dog-info-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const dogId = parseInt(this.getAttribute('data-dog-id'));
+            const dog = dogs.find(dog => dog.id === dogId);
+
+            document.getElementById('animalImage').src = dog.photo;
+            document.getElementById('animalName').textContent = dog.name;
+            document.getElementById('animalSize').textContent = dog.size;
+            document.getElementById('animalSex').textContent = dog.sex;
+            document.getElementById('animalAge').textContent = dog.age;
+            document.getElementById('animalShelterDuration').textContent = dog.shelterDuration || 'Neznáme';
+            document.getElementById('animalDescription').textContent = dog.description || 'Bez popisu';
+
+            const detailModal = new bootstrap.Modal(document.getElementById('detailModal'));
+            detailModal.show();
+        });
+    });
+}
 function renderDogs(page = 1) {
     const start = (page - 1) * dogsPerPage;
     const end = page * dogsPerPage;
