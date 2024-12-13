@@ -6,10 +6,13 @@ var filteredDogs = dogs;
 const applyFilterButton = document.getElementById("applyFilter");
 
 document.addEventListener('DOMContentLoaded', function() {
+    renderDogs();
     let selectedDogId = localStorage.getItem('selectedDogId');
     if (selectedDogId) {
         selectDog(selectedDogId);
     }
+    connectDetailButton();
+
 });
 
 applyFilterButton.addEventListener("click", () => {
@@ -31,8 +34,29 @@ applyFilterButton.addEventListener("click", () => {
     renderDogs(1);
     const filterModal = bootstrap.Modal.getInstance(document.getElementById("filterModal"));
     filterModal.hide();
+    connectDetailButton();
 });
 
+function connectDetailButton() {
+    // event listener to show modal with dog details when button is clicked
+    document.querySelectorAll('.dog-info-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const dogId = parseInt(this.getAttribute('data-dog-id'));
+            const dog = dogs.find(dog => dog.id === dogId);
+
+            document.getElementById('animalImage').src = dog.photo;
+            document.getElementById('animalName').textContent = dog.name;
+            document.getElementById('animalSize').textContent = dog.size;
+            document.getElementById('animalSex').textContent = dog.sex;
+            document.getElementById('animalAge').textContent = dog.age;
+            document.getElementById('animalShelterDuration').textContent = dog.shelterDuration || 'Neznáme';
+            document.getElementById('animalDescription').textContent = dog.description || 'Bez popisu';
+
+            const detailModal = new bootstrap.Modal(document.getElementById('detailModal'));
+            detailModal.show();
+        });
+    });
+}
 function renderDogs(page = 1) {
     const start = (page - 1) * dogsPerPage;
     const end = page * dogsPerPage;
@@ -45,12 +69,17 @@ function renderDogs(page = 1) {
         const dogCard = document.createElement('div');
         dogCard.classList.add('col-6', 'dog-card');
         dogCard.innerHTML = `
-            <div class="card dog-card mb-3 py-1 pe-2 ps-1" data-id="${dog.id}" onclick="selectDog(${dog.id})">
-                <img src="${dog.photo}" class="dog-photo card-img-top" alt="${dog.name}">
-                <div class="dog-info text-center border rounded-pill mt-1 border-secondary">
-                    <strong>${dog.name}</strong><br>
-                    <small>veľkosť: ${dog.size}, pohlavie: ${dog.sex}</small><br>
-                    <small>vek: ${dog.age}</small>
+            <div class="card dog-card mb-3 py-1 pe-2 ps-1 border rounded-5 mt-1 border-secondary" data-id="${dog.id}">
+                <img src="${dog.photo}" class="dog-photo card-img-top" alt="${dog.name}" onclick="selectDog(${dog.id})">
+                <div class="card-body pb-0" onclick="selectDog(${dog.id})">
+                    <div class="dog-info text-center">
+                        <strong>${dog.name}</strong><br>
+                        <small>veľkosť: ${dog.size}<br>pohlavie: ${dog.sex}</small><br>
+                        <small>vek: ${dog.age}</small>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0 text-center">
+                    <button class="btn btn-secondary btn-sm dog-info-btn" id="dog${dog.id}" data-dog-id="${dog.id}" >Viac info</button>
                 </div>
             </div>
         `;
@@ -112,16 +141,19 @@ function selectDog(dogId) {
     if (selectedDogId === dogId) {
         selectedDogId = null;
         document.querySelectorAll('.card').forEach(card => {
-            card.classList.remove('border', 'border-3', 'rounded', 'bg-primary', 'bg-opacity-10', 'border-primary');
+            card.classList.remove('bg-primary', 'bg-opacity-10', 'border-primary', 'border-3');
+            card.classList.add('border-secondary');
         });
     } else {
         selectedDogId = dogId;
         document.querySelectorAll('.dog-card').forEach(card => {
-            card.classList.remove('border', 'border-3', 'rounded', 'bg-primary', 'bg-opacity-10', 'border-primary');
+            card.classList.remove('bg-primary', 'bg-opacity-10', 'border-primary', 'border-3');
+            card.classList.add('border-secondary');
         });
         const selectedCard = document.querySelector(`[data-id="${dogId}"]`);
         if (selectedCard) {
-            selectedCard.classList.add('border', 'border-3', 'rounded', 'bg-primary', 'bg-opacity-10', 'border-primary');
+            selectedCard.classList.remove('border-secondary');
+            selectedCard.classList.add('bg-primary', 'bg-opacity-10', 'border-primary', 'border-3');
         }
     }
 }
@@ -152,6 +184,4 @@ function goToPage(page) {
     currentPage = page;
     renderDogs(page);
 }
-
-renderDogs();
 

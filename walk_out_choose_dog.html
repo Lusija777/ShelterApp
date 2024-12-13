@@ -35,11 +35,11 @@
 
         <div class="col-3 mx-auto">
             <!-- Filter Button -->
-            <button id="dogFilter" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>
+            <button id="dogFilter" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>
         </div>
     </div>
 
-    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -93,6 +93,40 @@
     <!-- Dog Selection Grid -->
     <div class="row" id="dogSelectionGrid">
         <!-- Dynamic content will be injected here -->
+    </div>
+
+    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="detailModalBody">
+                    <div id="animalDetail" class="row justify-content-center text-center mb-3">
+                        <div class="col-12 text-center">
+                            <!-- Center the image -->
+                            <img id="animalImage" class="animal-photo-detail img-fluid" alt="Zvieratko">
+                        </div>
+
+                        <div class="col-12 text-center">
+                            <!-- Card body with centered text -->
+                            <div class="card-body">
+                                <h2 id="animalName" style="font-weight: bold;"></h2>
+
+                                <ul class="centered-list list-unstyled">
+                                    <li><strong>veľkosť:</strong> <span id="animalSize"></span></li>
+                                    <li><strong>pohlavie:</strong> <span id="animalSex"></span></li>
+                                    <li><strong>vek:</strong> <span id="animalAge"></span></li>
+                                    <li><strong>v útulku je:</strong> <span id="animalShelterDuration"></span></li>
+                                </ul>
+
+                                <p id="animalDescription" class="card-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Pagination Section -->
