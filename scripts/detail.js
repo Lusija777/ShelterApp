@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('animalImage').src = animal.photo;
         document.getElementById('animalImage').alt = animal.name;
         document.getElementById('animalShelterDuration').textContent = animal.shelterDuration || 'Neznáme';
+        document.getElementById('animalShelterInfo').textContent = animal.info || 'Neznáme';
     } else {
         window.location.href = 'catalog.js.html';
     }
