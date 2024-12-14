@@ -6,6 +6,13 @@ document.addEventListener('DOMContentLoaded', function () {
         locale: "sk",
         minDate: new Date().fp_incr(1),
         defaultDate: localStorage.getItem('selectedDate') || null,
+        onDayCreate: function(dObj, dStr, fp, dayElem) {
+            const date = dayElem.dateObj;
+            // Ak je deň dnešný, pridáme triedu
+            if (date.toDateString() === new Date().toDateString()) {
+                dayElem.classList.add("today-highlight");
+            }
+        }
     });
 });
 

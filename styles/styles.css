@@ -77,3 +77,9 @@ html, body {
     height: 300px; /* Výška obrázka */
     margin-right: 15px; /* Medzera medzi obrázkom a textom */
 }
+
+.flatpickr-day.today-highlight {
+    border: 1px solid lightgray; /* Slabá sivá kruhová čiara */
+    background-color: transparent; /* Priehľadné pozadie */
+    box-sizing: border-box; /* Zabezpečí správne vykreslenie kruhu */
+}
