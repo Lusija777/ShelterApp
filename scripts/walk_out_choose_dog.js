@@ -11,8 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (selectedDogId) {
         selectDog(selectedDogId);
     }
-    connectDetailButton();
-
 });
 
 applyFilterButton.addEventListener("click", () => {
@@ -34,7 +32,6 @@ applyFilterButton.addEventListener("click", () => {
     renderDogs(1);
     const filterModal = bootstrap.Modal.getInstance(document.getElementById("filterModal"));
     filterModal.hide();
-    connectDetailButton();
 });
 
 function connectDetailButton() {
@@ -51,6 +48,7 @@ function connectDetailButton() {
             document.getElementById('animalAge').textContent = dog.age;
             document.getElementById('animalShelterDuration').textContent = dog.shelterDuration || 'Neznáme';
             document.getElementById('animalDescription').textContent = dog.description || 'Bez popisu';
+            document.getElementById('animalShelterInfo').textContent = dog.info || 'Neznáme';
 
             const detailModal = new bootstrap.Modal(document.getElementById('detailModal'));
             detailModal.show();
@@ -87,6 +85,7 @@ function renderDogs(page = 1) {
     });
 
     renderPagination(filteredDogs.length, page);
+    connectDetailButton();
 }
 
 function renderPagination(totalDogs, currentPage) {

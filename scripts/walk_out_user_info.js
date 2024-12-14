@@ -56,11 +56,18 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
     if (!phone) {
         showError('phone', 'Telefónne číslo je povinné.');
         hasError = true;
+    } else if (!/^09\d{8}$/.test(phone)) {
+        showError('phone', 'Telefónne číslo musí začínať na 09 a pokračovať 8 číslicami.');
+        hasError = true;
     }
     if (!email) {
         showError('email', 'E-mail je povinný.');
         hasError = true;
+    } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+        showError('email', 'Zadajte platnú emailovú adresu.');
+        hasError = true;
     }
+
     // Kontrola zhodnosti venčiarskeho preukazu
     if (idNumber) {
         const user = users.find(u => u.idNumber === idNumber);
