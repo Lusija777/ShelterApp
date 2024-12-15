@@ -43,10 +43,10 @@ function updateFilterOptions(animalType) {
             '                                <label for="fenka" class="form-check-label">Fenka</label>';
 
     } else if (animalType === 'cat') {
-        checksexmale.innerHTML += '<input class="form-check-input" type="checkbox" id="kocur" value="kocur">\n' +
-            '                                <label for="kocur" class="form-check-label">Kocúr</label>';
-        checksexfemale.innerHTML += '<input class="form-check-input" type="checkbox" id="macka" value="macka">\n' +
-            '                                <label for="macka" class="form-check-label">Mačka</label>';
+        checksexmale.innerHTML += '<input class="form-check-input" type="checkbox" id="kocúr" value="kocúr">\n' +
+            '                                <label for="kocúr" class="form-check-label">Kocúr</label>';
+        checksexfemale.innerHTML += '<input class="form-check-input" type="checkbox" id="mačka" value="mačka">\n' +
+            '                                <label for="mačka" class="form-check-label">Mačka</label>';
     }
 }
 applyFilterButton.addEventListener("click", () => {
