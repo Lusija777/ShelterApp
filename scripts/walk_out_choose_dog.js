@@ -11,6 +11,16 @@ document.addEventListener('DOMContentLoaded', function() {
     if (selectedDogId) {
         selectDog(selectedDogId);
     }
+
+    // TODO pridane s Veronikonho
+    // Pridanie listenerov na tlačidlá
+    document.querySelectorAll('.dog-info-select').forEach(button => {
+        button.addEventListener('click', function() {
+            let selectedDogId = this.getAttribute('data-dog-id'); // Získaj ID psa z tlačidla
+            selectDog(selectedDogId); // Zavolaj funkciu selectDog
+            localStorage.setItem('selectedDogId', selectedDogId); // Ulož výber do localStorage
+        });
+    });
 });
 
 applyFilterButton.addEventListener("click", () => {
@@ -55,6 +65,18 @@ function connectDetailButton() {
         });
     });
 }
+
+function connectSelectButton() {
+    document.querySelectorAll('.dog-info-select').forEach(button => {
+        button.addEventListener('click', function() {
+            const dogId = this.getAttribute('data-dog-id'); // Získaj ID psa z tlačidla
+            selectDog(dogId); // Zavolaj funkciu selectDog
+            localStorage.setItem('selectedDogId', dogId); // Ulož výber do localStorage
+        });
+    });
+}
+
+
 function renderDogs(page = 1) {
     const start = (page - 1) * dogsPerPage;
     const end = page * dogsPerPage;
@@ -66,6 +88,7 @@ function renderDogs(page = 1) {
     dogsToDisplay.forEach(dog => {
         const dogCard = document.createElement('div');
         dogCard.classList.add('col-6', 'col-md-3');
+        dogCard.setAttribute('data-id', dog.id); // Nastav atribút na identifikáciu karty
         dogCard.innerHTML = `
             <div class="dog-card card mb-3 py-1 pe-2 ps-1 border rounded-5 mt-1 border-secondary" data-id="${dog.id}">
                 <div class="card-body p-0" onclick="selectDog(${dog.id})">
@@ -77,7 +100,8 @@ function renderDogs(page = 1) {
                     </div>
                 </div>
                 <div class="card-footer bg-transparent border-0 text-center">
-                    <button class="btn btn-secondary btn-sm dog-info-btn" id="dog${dog.id}" data-dog-id="${dog.id}" >Viac info</button>
+                    <button class="btn btn-secondary btn-sm dog-info-btn" data-dog-id="${dog.id}" >Viac info</button>
+                    <button class="btn btn-secondary btn-sm dog-info-select" data-dog-id="${dog.id}" >Vybrať</button>
                 </div>
             </div>
         `;
@@ -87,6 +111,7 @@ function renderDogs(page = 1) {
     renderPagination(filteredDogs.length, page);
     connectDetailButton();
 }
+
 
 function renderPagination(totalDogs, currentPage) {
     const pagination = document.getElementById('pagination');
