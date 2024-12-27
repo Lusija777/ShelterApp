@@ -65,11 +65,11 @@ function renderDogs(page = 1) {
 
     dogsToDisplay.forEach(dog => {
         const dogCard = document.createElement('div');
-        dogCard.classList.add('col-6', 'dog-card');
+        dogCard.classList.add('col-6', 'col-md-3');
         dogCard.innerHTML = `
-            <div class="card dog-card mb-3 py-1 pe-2 ps-1 border rounded-5 mt-1 border-secondary" data-id="${dog.id}">
-                <img src="${dog.photo}" class="dog-photo card-img-top" alt="${dog.name}" onclick="selectDog(${dog.id})">
-                <div class="card-body pb-0" onclick="selectDog(${dog.id})">
+            <div class="dog-card card mb-3 py-1 pe-2 ps-1 border rounded-5 mt-1 border-secondary" data-id="${dog.id}">
+                <div class="card-body p-0" onclick="selectDog(${dog.id})">
+                    <img src="${dog.photo}" class="dog-photo card-img-top" alt="${dog.name}">
                     <div class="dog-info text-center">
                         <strong>${dog.name}</strong><br>
                         <small>veľkosť: ${dog.size}<br>pohlavie: ${dog.sex}</small><br>

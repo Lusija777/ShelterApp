@@ -25,6 +25,7 @@ function removeDataInLocalStorageForWalk() {
     localStorage.removeItem('selectedDate');
     localStorage.removeItem('selectedTime');
     localStorage.removeItem('timeId');
+    localStorage.removeItem('isInReservationProcess');
 }
 
 function redirectToPage(page) {
@@ -34,6 +35,8 @@ function redirectToPage(page) {
             break;
         case 'walk':
             removeDataInLocalStorageForWalk();
+            localStorage.removeItem('catalogSelectedDogId');
+            localStorage.removeItem('selectedAnimal');
             window.location.href = 'walk_out.html';
             break;
         case 'help':
@@ -44,7 +47,12 @@ function redirectToPage(page) {
             break;
         case 'index':
             window.location.href = 'index.html';
+            localStorage.clear();
             break;
+        case 'walk_from_detail':
+            removeDataInLocalStorageForWalk();
+            window.location.href = 'walk_out.html';
+            break
         default:
             window.location.href = 'not_implemented.html';
     }

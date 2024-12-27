@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.getElementById('submitButton').addEventListener('click', function() {
     localStorage.setItem('catalogSelectedDogId', selectedDogId);
-    redirectToPage('walk');
+    redirectToPage('walk_from_detail');
 });
 
 
