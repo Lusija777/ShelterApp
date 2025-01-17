@@ -46,25 +46,25 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
     let hasError = false;
 
     if (!name) {
-        showError('name', 'Meno je povinné.');
+        showError('name', 'Meno je povinný údaj.');
         hasError = true;
     }
     if (!surname) {
-        showError('surname', 'Priezvisko je povinné.');
+        showError('surname', 'Priezvisko je povinný údaj.');
         hasError = true;
     }
     if (!phone) {
-        showError('phone', 'Telefónne číslo je povinné.');
+        showError('phone', 'Telefónne číslo je povinný údaj.');
         hasError = true;
     } else if (!/^09\d{8}$/.test(phone)) {
         showError('phone', 'Telefónne číslo musí začínať na 09 a pokračovať 8 číslicami.');
         hasError = true;
     }
     if (!email) {
-        showError('email', 'E-mail je povinný.');
+        showError('email', 'E-mail je povinný údaj.');
         hasError = true;
     } else if (!/^\S+@\S+\.\S+$/.test(email)) {
-        showError('email', 'Zadajte platnú emailovú adresu.');
+        showError('email', 'E-mail musí byť platný. Skontrolujte, či obsahuje @ a platnú doménu.');
         hasError = true;
     }
 
@@ -82,11 +82,11 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
 
     if (checkbox.checked){
         if (!password) {
-            showError('password', 'Heslo je povinné.');
+            showError('password', 'Heslo je povinný údaj.');
             hasError = true;
         }
         if (!confirmPassword) {
-            showError('confirmPassword', 'Potvrdenie hesla je povinný.');
+            showError('confirmPassword', 'Zopakujte heslo pre potvrdenie. Toto pole je povinné.');
             hasError = true;
         }
     }
@@ -94,10 +94,10 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
     // Kontrola hesiel, ak sú zadané
     if (document.getElementById('passwordToggle').checked) {
         if (!password || !confirmPassword) {
-            showError('password', 'Vyplňte obe heslové polia.');
+            showError('password', 'Heslo je povinné. Vyplňte obe polia.');
             hasError = true;
         } else if (password !== confirmPassword) {
-            showError('confirmPassword', 'Heslá sa nezhodujú.');
+            showError('confirmPassword', 'Heslá sa nezhodujú. Uistite sa, že obe polia majú rovnaké heslo.');
             hasError = true;
         }
     }

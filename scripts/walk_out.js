@@ -17,6 +17,11 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
+    let catalogSelectedDogId = localStorage.getItem('catalogSelectedDogId');
+    if (catalogSelectedDogId) {
+        let dogName = dogs.find(dog => dog.id === parseInt(catalogSelectedDogId)).name;
+        document.getElementsByClassName('walk-text')[0].innerHTML = 'Tu si rezervujete prechádzku s Vami vybraným psíkom s menom: <strong>' + dogName + '</strong>. Prechádzka trvá maximálne 2 hodiny.';
+    }
     const datepicker = document.querySelector('#datepicker');
     const timeButtons = document.querySelectorAll('#time button');
     const submitButton = document.querySelector('#submit');
