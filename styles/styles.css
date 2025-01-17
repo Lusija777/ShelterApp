@@ -83,3 +83,25 @@ html, body {
     background-color: transparent; /* Priehľadné pozadie */
     box-sizing: border-box; /* Zabezpečí správne vykreslenie kruhu */
 }
+
+@media (min-width: 992px) {
+    .navbar-nav .nav-link i {
+        display: none;
+    }
+
+    .navbar .order-lg-2 {
+        margin-left: auto;
+    }
+
+    .navbar-nav .nav-item {
+        border-bottom: none;
+    }
+
+    .profile-icon {
+        display: none;
+    }
+
+    .profile-text {
+        display: inline;
+    }
+}
