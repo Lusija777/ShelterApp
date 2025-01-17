@@ -50,10 +50,15 @@ document.getElementById('backButton').addEventListener('click', function() {
 
 document.getElementById('submitButton').addEventListener('click', function() {
     const gdprCheckbox = document.getElementById("gdpr-checkbox");
+    const errorMessage = gdprCheckbox.parentElement.querySelector('.invalid-feedback');
+    errorMessage.classList.add('d-none');
+    errorMessage.classList.remove('d-block');
     gdprCheckbox.classList.remove("is-invalid");
 
     if (!gdprCheckbox.checked) {
         gdprCheckbox.classList.add("is-invalid");
+        errorMessage.classList.remove('d-none');
+        errorMessage.classList.add('d-block');
     }
     else {
         localStorage.clear();
