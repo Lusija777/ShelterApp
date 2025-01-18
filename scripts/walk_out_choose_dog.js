@@ -63,6 +63,7 @@ function connectSelectButton() {
             selectDog(dogId); // Zavolaj funkciu selectDog
             document.querySelectorAll('.dog-info-select').forEach(otherButton => {
                 otherButton.textContent = 'Vybrať';
+                otherButton.classList.remove('btn-danger');
             });
             // Zmen text buttonu
             if (selectedDogId === dogId) {
