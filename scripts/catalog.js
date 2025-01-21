@@ -82,7 +82,7 @@ function renderAnimals(page = 1) {
 
     animalsToDisplay.forEach(animal => {
         const animalCard = document.createElement('div');
-        animalCard.classList.add('col-6', 'animal-card');
+        animalCard.classList.add('col-6', 'col-md-3', 'animal-card');
         animalCard.innerHTML = `
             <div class="card animal-card mb-3 py-1 pe-2 ps-1" data-id="${animal.id}" onclick="showAnimalDetails(${animal.id}, '${animalType}')">
                 <img src="${animal.photo}" class="animal-photo card-img-top" alt="${animal.name}">
