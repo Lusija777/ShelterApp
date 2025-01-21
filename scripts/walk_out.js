@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 window.location.href = 'walk_out_user_info.html';
             }
             else{
-                window.location.href = 'walk_out_choose_dog.html';
+                window.location.href = 'walk_out_choose_first_dog.html';
             }
         } else {
             window.scrollTo({
