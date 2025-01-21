@@ -22,7 +22,7 @@ function renderDogs(page = 1) {
         dogCard.setAttribute('data-id', dog.id); // Nastav atribút na identifikáciu karty
         dogCard.innerHTML = `
             <div class="dog-card card mb-3 py-1 pe-2 ps-1 border rounded-5 mt-1 border-secondary" data-id="${dog.id}">
-                <div class="card-body p-0" onclick="selectDog(${dog.id})">
+                <div class="card-body p-0">
                     <img src="${dog.photo}" class="dog-photo card-img-top" alt="${dog.name}">
                     <div class="dog-info text-center">
                         <strong>${dog.name}</strong><br>
