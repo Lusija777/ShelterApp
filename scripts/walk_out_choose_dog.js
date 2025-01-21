@@ -42,6 +42,22 @@ function connectDetailButton() {
             document.getElementById('animalDescription').textContent = dog.description || 'Bez popisu';
             document.getElementById('animalShelterInfo').textContent = dog.info || 'Neznáme';
 
+            const modalButton = document.querySelector('.dog-modal-info-select');
+            modalButton.setAttribute('data-dog-id', dog.id);
+            console.log(Number(dog.id) === Number(selectedDogId));
+            if (Number(dog.id) === Number(selectedDogId)){
+                modalButton.textContent = 'Odobrať';
+                modalButton.classList.add('btn-danger');
+            } else {
+                modalButton.textContent = 'Vybrať';
+                modalButton.classList.remove('btn-danger');
+            }
+            modalButton.addEventListener('click', function () {
+                const targetButton = document.querySelector(`.dog-info-select[data-dog-id="${dog.id}"]`);
+                if (targetButton) {
+                    targetButton.click();
+                }
+            }, { once: true });
             const detailModal = new bootstrap.Modal(document.getElementById('detailModal'));
             detailModal.show();
         });
@@ -65,6 +81,8 @@ function connectSelectButton() {
                 button.textContent = 'Vybrať';
                 button.classList.remove('btn-danger');
             }
+            console.log('selected '+selectedDogId);
+            console.log('dogId '+selectedDogId);
         });
     });
 }
