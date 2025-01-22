@@ -3,6 +3,7 @@ const dogsPerPage = 4; // Number of dogs to show per page
 let currentPage = 1;
 
 var filteredDogs = dogs;
+var dogsToFilter = dogs;
 const applyFilterButton = document.getElementById("applyFilter");
 
 applyFilterButton.addEventListener("click", () => {
@@ -13,7 +14,7 @@ applyFilterButton.addEventListener("click", () => {
     let checkedSizes = Array.from(sizes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
 
     // Filter Logic
-    filteredDogs = dogs.filter(dog => {
+    filteredDogs = dogsToFilter.filter(dog => {
         if (checkedSizes.length === 0 && checkedSexes.length === 0) return true;
         if (checkedSizes.length === 0) return checkedSexes.includes(dog.sex);
         if (checkedSexes.length === 0) return checkedSizes.includes(dog.size);
