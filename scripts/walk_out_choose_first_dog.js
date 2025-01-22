@@ -52,7 +52,7 @@ function selectDog(dogId) {
             card.classList.remove('bg-primary', 'bg-opacity-10', 'border-primary', 'border-3');
             card.classList.add('border-secondary');
 
-            label.textContent = 'Pridať druhého psíka.';
+            label.textContent = 'Chcete pridať druhého psíka?';
         });
     } else {
         selectedDogId = dogId;
@@ -60,7 +60,7 @@ function selectDog(dogId) {
             card.classList.remove('bg-primary', 'bg-opacity-10', 'border-primary', 'border-3');
             card.classList.add('border-secondary');
 
-            label.textContent = 'Pridať druhého psíka.';
+            label.textContent = 'Chcete pridať druhého psíka?';
         });
         const selectedCard = document.querySelector(`[data-id="${dogId}"]`);
         if (selectedCard) {
@@ -69,7 +69,7 @@ function selectDog(dogId) {
 
             firstDog = dogs.find(d => d.id === Number(dogId));
             const count = dogs.filter(d => d.room === firstDog.room && d.id !== firstDog.id).length;
-            label.textContent = 'Pridať druhého psíka. Budete mať na výber ' + count + ' psíkov';
+            label.textContent = 'Chcete pridať druhého psíka? Budete mať na výber ' + count + ' psíkov';
         }
     }
 }
