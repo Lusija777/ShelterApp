@@ -1,3 +1,11 @@
+var firstDogId = localStorage.getItem('selectedDogId');
+var firstDog = dogs.find(d => d.id === Number(firstDogId));
+// filter dogs by room
+filteredDogs = dogs.filter(dog => {
+    return firstDog.room === dog.room && Number(firstDogId) !== dog.id;
+});
+dogsToFilter = filteredDogs;
+console.log(dogsToFilter);
 document.addEventListener('DOMContentLoaded', function() {
     renderDogs();
     let selectedDogId = localStorage.getItem('selectedSecondDogId');
@@ -12,13 +20,6 @@ function renderDogs(page = 1) {
     const start = (page - 1) * dogsPerPage;
     const end = page * dogsPerPage;
 
-    // filter dogs by room
-    firstDogId = localStorage.getItem('selectedDogId');
-    firstDog = dogs.find(d => d.id === Number(firstDogId));
-    filteredDogs = dogs.filter(dog => {
-        return firstDog.room === dog.room && Number(firstDogId) !== dog.id;
-    });
-
     const dogsToDisplay = filteredDogs.slice(start, end);
 
     const dogSelectionGrid = document.getElementById('dogSelectionGrid');
@@ -26,8 +27,7 @@ function renderDogs(page = 1) {
 
     dogsToDisplay.forEach(dog => {
         const dogCard = document.createElement('div');
-        dogCard.classList.add('col-6', 'col-md-3', 'dog-card');
-        dogCard.setAttribute('data-id', dog.id); // Nastav atribút na identifikáciu karty
+        dogCard.classList.add('col-6', 'col-md-3');
         dogCard.innerHTML = `
             <div class="dog-card card mb-3 py-1 pe-2 ps-1 border rounded-5 mt-1 border-secondary" data-id="${dog.id}">
                 <div class="card-body p-0">
@@ -38,9 +38,9 @@ function renderDogs(page = 1) {
                         <small>vek: ${dog.age}</small>
                     </div>
                 </div>
-                <div class="card-footer bg-transparent border-0 text-center">
+                <div class="card-footer bg-transparent border-0 text-center d-flex justify-content-around align-items-center p-2">
                     <button class="btn btn-secondary btn-sm dog-info-btn" data-dog-id="${dog.id}" >Info</button>
-                    <button class="btn btn-secondary btn-sm dog-info-select" data-dog-id="${dog.id}" >Vybrať</button>
+                    <button class="btn btn-primary btn-sm dog-info-select" data-dog-id="${dog.id}" >Vybrať</button>
                 </div>
             </div>
         `;
