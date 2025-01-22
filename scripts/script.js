@@ -53,6 +53,9 @@ function redirectToPage(page) {
             removeDataInLocalStorageForWalk();
             window.location.href = 'walk_out.html';
             break
+        case 'catalog':
+            window.location.href = 'catalog.html';
+            break;
         default:
             window.location.href = 'not_implemented.html';
     }
