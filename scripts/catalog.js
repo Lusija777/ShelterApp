@@ -1,5 +1,5 @@
 let selectedAnimalId = null;
-const animalsPerPage = 4; // Number of animals to show per page
+let animalsPerPage = 4; // Number of animals to show per page
 let currentPage = 1;
 
 let pets = dogs;
@@ -48,6 +48,7 @@ function updateFilterOptions(animalType) {
         checksexfemale.innerHTML += '<input class="form-check-input" type="checkbox" id="mačka" value="mačka">\n' +
             '                                <label for="mačka" class="form-check-label">Mačka</label>';
     }
+    animalsPerPage = 4;
 }
 applyFilterButton.addEventListener("click", () => {
     let sexes = document.querySelectorAll(('#sex input'));
@@ -62,7 +63,9 @@ applyFilterButton.addEventListener("click", () => {
         if (checkedSizes.length === 0 && checkedSexes.length === 0) return true;
         if (checkedSizes.length === 0) return checkedSexes.includes(pet.sex);
         if (checkedSexes.length === 0) return checkedSizes.includes(pet.size);
+        animalsPerPage = 4;
         return checkedSexes.includes(pet.sex) && checkedSizes.includes(pet.size);
+
     });
 
     // Render Filtered Dogs
@@ -98,62 +101,9 @@ function renderAnimals(page = 1) {
     });
 
     // Aktualizujeme stránkovanie
-    renderPagination(animals.length, page);
+    //renderPagination(animals.length, page);
 }
 
-
-function renderPagination(totalAnimals, currentPage) {
-    const pagination = document.getElementById('pagination');
-    pagination.innerHTML = '';
-
-    const totalPages = Math.ceil(totalAnimals / animalsPerPage);
-
-    // Uistíme sa, že aktuálna stránka je v platných medziach
-    if (currentPage < 1) currentPage = 1;
-    if (currentPage > totalPages) currentPage = totalPages;
-
-    // Vytvoríme tlačidlo na predchádzajúcu stránku
-    const prevItem = document.createElement('li');
-    prevItem.classList.add('page-item');
-    if (currentPage === 1) {
-        prevItem.classList.add('disabled'); // Zakážeme tlačidlo na prvej stránke
-    }
-    prevItem.innerHTML = `
-        <a class="page-link" href="#" onclick="goToPage(${currentPage - 1})" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-        </a>
-    `;
-    pagination.appendChild(prevItem);
-
-    // Vytvoríme číslovanie strán
-    for (let i = 1; i <= totalPages; i++) {
-        const pageItem = document.createElement('li');
-        pageItem.classList.add('page-item');
-        if (currentPage === i) {
-            pageItem.classList.add('active'); // Označíme aktívnu stránku
-        }
-        pageItem.innerHTML = `<a class="page-link" href="#" onclick="goToPage(${i})">${i}</a>`;
-        pagination.appendChild(pageItem);
-    }
-
-    // Vytvoríme tlačidlo na ďalšiu stránku
-    const nextItem = document.createElement('li');
-    nextItem.classList.add('page-item');
-    if (currentPage === totalPages) {
-        nextItem.classList.add('disabled'); // Zakážeme tlačidlo na poslednej stránke
-    }
-    nextItem.innerHTML = `
-        <a class="page-link" href="#" onclick="goToPage(${currentPage + 1})" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-        </a>
-    `;
-    pagination.appendChild(nextItem);
-}
-
-function goToPage(page) {
-    currentPage = page;
-    renderAnimals(page);
-}
 
 
 function showAnimalDetails(animalId, animalType) {
@@ -165,4 +115,13 @@ function showAnimalDetails(animalId, animalType) {
 // Načítanie stránok pre psy a mačky na prvej stránke
 updateFilterOptions(animalType);
 renderAnimals(1);
+
+document.getElementById('loadMoreButton').addEventListener('click', () => {
+    animalsPerPage = animalsPerPage+4;
+    renderAnimals(currentPage); // Re-render the grid with the updated number of items
+    if (animalsPerPage >= pets.length) {
+        document.getElementById('loadMoreButton').style.display = 'none';
+    }
+});
+
 
