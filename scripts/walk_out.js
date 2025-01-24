@@ -19,8 +19,14 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
     let catalogSelectedDogId = localStorage.getItem('catalogSelectedDogId');
     if (catalogSelectedDogId) {
-        let dogName = dogs.find(dog => dog.id === parseInt(catalogSelectedDogId)).name;
+        let firstDog = dogs.find(dog => dog.id === parseInt(catalogSelectedDogId))
+        let dogName = firstDog.name;
         document.getElementsByClassName('walk-text')[0].innerHTML = 'Tu si rezervujete prechádzku s Vami vybraným psíkom s menom: <strong>' + dogName + '</strong>. Prechádzka trvá maximálne 2 hodiny.';
+
+        const count = dogs.filter(d => d.room === firstDog.room && d.id !== firstDog.id).length;
+        const label = document.querySelector('label[for="secondDogCheckbox"]');
+        label.innerHTML = '<strong>Chcete pridať druhého psíka?</strong><br>Budete mať na výber <strong>' + count + '</strong> psíkov';
+
     }
     const datepicker = document.querySelector('#datepicker');
     const timeButtons = document.querySelectorAll('#time button');
@@ -77,7 +83,13 @@ document.addEventListener('DOMContentLoaded', function () {
             let catalogSelectedDogId = localStorage.getItem('catalogSelectedDogId');
             if (catalogSelectedDogId) {
                 localStorage.setItem('selectedDogId', catalogSelectedDogId);
-                window.location.href = 'walk_out_user_info.html';
+                const checkbox = document.getElementById("secondDogCheckbox");
+                if (checkbox.checked) {
+                    window.location.href = 'walk_out_choose_second_dog.html';
+                }
+                else{
+                    window.location.href = 'walk_out_user_info.html';
+                }
             }
             else{
                 window.location.href = 'walk_out_choose_first_dog.html';
@@ -91,4 +103,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+function evaluateSecondDogCheckbox() {
+    const checkbox = document.getElementById("secondDogCheckbox");
+    const submitButton = document.getElementById("submitButton");
 
+    if (checkbox.checked) {
+        submitButton.textContent = "Vybrať druhého psíka";
+    } else {
+        submitButton.textContent = "Pokračovať";
+    }
+}
