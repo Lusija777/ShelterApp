@@ -1,5 +1,5 @@
 let selectedDogId = null;
-const dogsPerPage = 4; // Number of dogs to show per page
+let dogsPerPage = 4; // Number of dogs to show per page
 let currentPage = 1;
 
 var filteredDogs = dogs;
@@ -17,7 +17,9 @@ applyFilterButton.addEventListener("click", () => {
         if (checkedSizes.length === 0 && checkedSexes.length === 0) return true;
         if (checkedSizes.length === 0) return checkedSexes.includes(dog.sex);
         if (checkedSexes.length === 0) return checkedSizes.includes(dog.size);
+        dogsPerPage = 4;
         return checkedSexes.includes(dog.sex) && checkedSizes.includes(dog.size);
+
     });
 
     // Render Filtered Dogs
@@ -87,63 +89,20 @@ function connectSelectButton() {
     });
 }
 
-function renderPagination(totalDogs, currentPage) {
-    const pagination = document.getElementById('pagination');
-    pagination.innerHTML = '';
-
-    const totalPages = Math.ceil(totalDogs / dogsPerPage);
-
-    // Validate currentPage to ensure it is within bounds
-    if (currentPage < 1) currentPage = 1;
-    if (currentPage > totalPages) currentPage = totalPages;
-
-    // Create Previous Button
-    const prevItem = document.createElement('li');
-    prevItem.classList.add('page-item');
-    if (currentPage === 1) {
-        prevItem.classList.add('disabled'); // Disable button on first page
-    }
-    prevItem.innerHTML = `
-        <a class="page-link" href="#" onclick="goToPage(${currentPage - 1})" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-        </a>
-    `;
-    pagination.appendChild(prevItem);
-
-    // Create Page Numbers
-    for (let i = 1; i <= totalPages; i++) {
-        const pageItem = document.createElement('li');
-        pageItem.classList.add('page-item');
-        if (currentPage === i) {
-            pageItem.classList.add('active'); // Highlight current page
-        }
-        pageItem.innerHTML = `<a class="page-link" href="#" onclick="goToPage(${i})">${i}</a>`;
-        pagination.appendChild(pageItem);
-    }
-
-    // Create Next Button
-    const nextItem = document.createElement('li');
-    nextItem.classList.add('page-item');
-    if (currentPage === totalPages) {
-        nextItem.classList.add('disabled'); // Disable button on last page
-    }
-    nextItem.innerHTML = `
-        <a class="page-link" href="#" onclick="goToPage(${currentPage + 1})" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-        </a>
-    `;
-    pagination.appendChild(nextItem);
-}
 
 document.getElementById('dogFilter').addEventListener('input', function() {
     renderDogs(currentPage, this.value);
+});
+    document.getElementById('loadMoreButton').addEventListener('click', () => {
+        dogsPerPage = dogsPerPage+4;
+        renderDogs(currentPage); // Re-render the grid with the updated number of items
+        if (dogsPerPage >= filteredDogs.length) {
+            document.getElementById('loadMoreButton').style.display = 'none';
+        }
 });
 
 document.getElementById('backButton').addEventListener('click', function() {
     history.back();
 });
 
-function goToPage(page) {
-    currentPage = page;
-    renderDogs(page);
-}
+
