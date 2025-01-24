@@ -1,5 +1,5 @@
 let selectedAnimalId = null;
-const animalsPerPage = 4; // Number of animals to show per page
+const animalsPerPage = 8; // Number of animals to show per page
 let currentPage = 1;
 
 let pets = dogs;
