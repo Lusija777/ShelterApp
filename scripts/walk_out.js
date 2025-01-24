@@ -23,10 +23,13 @@ document.addEventListener('DOMContentLoaded', function () {
         let dogName = firstDog.name;
         document.getElementsByClassName('walk-text')[0].innerHTML = 'Tu si rezervujete prechádzku s Vami vybraným psíkom s menom: <strong>' + dogName + '</strong>. Prechádzka trvá maximálne 2 hodiny.';
 
+        let section = document.getElementById('secondDogCheckboxSection');
+        section.classList.remove('d-none');
+        section.classList.add('d-block');
+
         const count = dogs.filter(d => d.room === firstDog.room && d.id !== firstDog.id).length;
         const label = document.querySelector('label[for="secondDogCheckbox"]');
         label.innerHTML = '<strong>Chcete pridať druhého psíka?</strong><br>Budete mať na výber <strong>' + count + '</strong> psíkov';
-
     }
     const datepicker = document.querySelector('#datepicker');
     const timeButtons = document.querySelectorAll('#time button');
