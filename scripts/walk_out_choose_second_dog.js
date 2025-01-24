@@ -47,7 +47,7 @@ function renderDogs(page = 1) {
         dogSelectionGrid.appendChild(dogCard);
     });
 
-    renderPagination(filteredDogs.length, page);
+
     connectDetailButton();
     connectSelectButton();
 }
