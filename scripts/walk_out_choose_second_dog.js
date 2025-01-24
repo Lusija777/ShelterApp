@@ -3,15 +3,19 @@ const dogsPerPage = 8; // Number of dogs to show per page
 let currentPage = 1;
 
 var filteredDogs = dogs;
+var dogsToChoose = dogs;
 const applyFilterButton = document.getElementById("applyFilter");
+let selectedDogs = []; // Pole na uloženie ID vybraných psov
 
 document.addEventListener('DOMContentLoaded', function() {
-    renderDogs();
-    updateSelectedDogsUI();
     let selectedDogId = localStorage.getItem('selectedDogId');
     if (selectedDogId) {
-        selectDog(selectedDogId);
+        filteredDogs = dogs.filter(dog => dog.id !== parseInt(selectedDogId));
+        dogsToChoose = filteredDogs;
+        selectedDogs.push(parseInt(selectedDogId));
     }
+    renderDogs();
+    updateSelectedDogsUI();
 });
 
 applyFilterButton.addEventListener("click", () => {
@@ -22,7 +26,7 @@ applyFilterButton.addEventListener("click", () => {
     let checkedSizes = Array.from(sizes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
 
     // Filter Logic
-    filteredDogs = dogs.filter(dog => {
+    filteredDogs = dogsToChoose.filter(dog => {
         if (checkedSizes.length === 0 && checkedSexes.length === 0) return true;
         if (checkedSizes.length === 0) return checkedSexes.includes(dog.sex);
         if (checkedSexes.length === 0) return checkedSizes.includes(dog.size);
@@ -137,8 +141,6 @@ function renderPagination(totalDogs, currentPage) {
     pagination.appendChild(nextItem);
 }
 
-let selectedDogs = []; // Pole na uloženie ID vybraných psov
-
 function updateSelectedDogsUI() {
     const chosenDogDiv = document.querySelector('.chosen-dog');
 
@@ -222,8 +224,6 @@ function selectDog(dogId) {
         }
     }
 }
-
-
 
 // Skontrolujeme kompatibilitu
 function areDogsCompatible(dogId1, dogId2) {

@@ -6,23 +6,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Najdi psov v DB
     const selectedDogs = dogs.filter(d => selectedDogIds.includes(d.id));
-
-    dogInfo.innerHTML = selectedDogs.map(dog => `
-    <div class="mb-3 py-1 pe-2 ps-1">
-        <div class="row g-0">
-            <div class="col-6 d-flex">
-                <img src="${dog.photo}" class="dog-photo" alt="${dog.name}">
+    let dog = selectedDogs[0];
+    dogInfo.innerHTML = `
+        <div class="mb-3 py-1 pe-2 ps-1">
+            <div class="row g-0">
+                <div class="col-6 d-flex">
+                    <img src="${dog.photo}" class="dog-photo" alt="${dog.name}">
+                </div>
+                <div class="col-6 d-flex justify-content-center align-items-center">
+                    <div class="dog-info">
+                        <strong>Dátum: </strong>${date}<br>
+                        <strong>Čas: </strong>${time}<br>
+                        <strong>Psík: </strong>${dog.name}<br>
+                    </div>
+                </div>
             </div>
-            <div class="col-6 d-flex justify-content-center align-items-center">
+        </div>`;
+
+    if (selectedDogs.length === 2) {
+        let secondDog = selectedDogs[1];
+        dogInfo.innerHTML = `<div class="mb-3 py-1 pe-2 ps-1">
+            <div class="row g-0">
+                <div class="col-6 d-flex justify-content-center">
+                    <img src="${dog.photo}" class="dog-photo" alt="${dog.name}">
+                </div>
+                <div class="col-6 d-flex justify-content-center">
+                    <img src="${secondDog.photo}" class="dog-photo" alt="${secondDog.name}">
+                </div>
+                <div class="col-6 d-flex justify-content-center">
+                    <strong>${dog.name}</strong>
+                </div>
+                <div class="col-6 d-flex justify-content-center">
+                    <strong>${secondDog.name}</strong>
+                </div>
+            </div>
+            <div class="mt-3 col-6 d-flex justify-content-center align-items-center">
                 <div class="dog-info">
                     <strong>Dátum: </strong>${date}<br>
                     <strong>Čas: </strong>${time}<br>
-                    <strong>Psík: </strong>${dog.name}<br>
                 </div>
             </div>
-        </div>
-    </div>
-`).join('')
+        </div>`;
+    }
 
 
     const userData = JSON.parse(localStorage.getItem('userData'));

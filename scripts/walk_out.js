@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (catalogSelectedDogId) {
         let dogName = dogs.find(dog => dog.id === parseInt(catalogSelectedDogId)).name;
         document.getElementsByClassName('walk-text')[0].innerHTML = 'Tu si rezervujete prechádzku s Vami vybraným psíkom s menom: <strong>' + dogName + '</strong>. Prechádzka trvá maximálne 2 hodiny.';
+        document.getElementsByClassName('checkbox-second-dog-from-catalog')[0].classList.remove('d-none');
     }
     const datepicker = document.querySelector('#datepicker');
     const timeButtons = document.querySelectorAll('#time button');
@@ -77,7 +78,12 @@ document.addEventListener('DOMContentLoaded', function () {
             let catalogSelectedDogId = localStorage.getItem('catalogSelectedDogId');
             if (catalogSelectedDogId) {
                 localStorage.setItem('selectedDogId', catalogSelectedDogId);
-                window.location.href = 'walk_out_user_info.html';
+                let checkSecondDog = document.getElementById('secondDogCheckbox');
+                if (checkSecondDog.checked) {
+                    window.location.href = 'walk_out_choose_second_dog.html';
+                } else {
+                    window.location.href = 'walk_out_user_info.html';
+                }
             }
             else{
                 window.location.href = 'walk_out_choose_dog.html';
