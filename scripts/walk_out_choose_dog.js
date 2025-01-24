@@ -1,5 +1,5 @@
 let selectedDogId = null;
-const dogsPerPage = 4; // Number of dogs to show per page
+const dogsPerPage = 8; // Number of dogs to show per page
 let currentPage = 1;
 
 var filteredDogs = dogs;
@@ -136,41 +136,91 @@ function renderPagination(totalDogs, currentPage) {
     pagination.appendChild(nextItem);
 }
 
+let selectedDogs = []; // Pole na uloženie ID vybraných psov
+
 function selectDog(dogId) {
-    if (selectedDogId === dogId) {
-        selectedDogId = null;
-        document.querySelectorAll('.card').forEach(card => {
-            card.classList.remove('bg-primary', 'bg-opacity-10', 'border-primary', 'border-3');
-            card.classList.add('border-secondary');
-        });
-    } else {
-        selectedDogId = dogId;
-        document.querySelectorAll('.dog-card').forEach(card => {
-            card.classList.remove('bg-primary', 'bg-opacity-10', 'border-primary', 'border-3');
-            card.classList.add('border-secondary');
-        });
-        const selectedCard = document.querySelector(`[data-id="${dogId}"]`);
+    const selectedCard = document.querySelector(`[data-id="${dogId}"]`);
+
+    document.querySelector(".invalid-number").style.display = "none";
+    document.querySelector(".invalid-compatibility").style.display = "none";
+
+    // Check if the dog is already selected
+    if (selectedDogs.includes(dogId)) {
+        // Remove the dog from the selection
+        selectedDogs = selectedDogs.filter(id => id !== dogId);
         if (selectedCard) {
-            selectedCard.classList.remove('border-secondary');
-            selectedCard.classList.add('bg-primary', 'bg-opacity-10', 'border-primary', 'border-3');
+            selectedCard.classList.remove('bg-primary', 'bg-opacity-10', 'border-primary', 'border-3');
+            selectedCard.classList.add('border-secondary');
+        }
+    } else {
+        if (selectedDogs.length < 2) {
+            // If another dog is already selected, check compatibility
+            if (selectedDogs.length === 1) {
+                const existingDogId = selectedDogs[0];
+                if (!areDogsCompatible(existingDogId, dogId)) {
+                   // alert('Psíkovia nie sú kompatibilní, prosím vyberte si inú dvojicu');
+                    document.querySelector(".invalid-compatibility").style.display = "block";
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    })
+                    return; // Exit without adding the incompatible dog
+                }
+            }
+
+            // Add the dog to the selection
+            selectedDogs.push(dogId);
+            if (selectedCard) {
+                selectedCard.classList.remove('border-secondary');
+                selectedCard.classList.add('bg-primary', 'bg-opacity-10', 'border-primary', 'border-3');
+            }
+        } else {
+           // alert('Môžete si vybrať najviac dvoch psíkov!');
+            document.querySelector(".invalid-number").style.display = "block";
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            })
+            return;
         }
     }
 }
 
+
+
+// Skontrolujeme kompatibilitu
+function areDogsCompatible(dogId1, dogId2) {
+    // Find dogs in the database
+    const dog1 = dogs.find(dog => dog.id === dogId1);
+    const dog2 = dogs.find(dog => dog.id === dogId2);
+
+    return dog1 && dog2 && dog1.room === dog2.room;
+}
+
+
 document.getElementById('dogFilter').addEventListener('input', function() {
     renderDogs(currentPage, this.value);
 });
-document.getElementById('submitButton').addEventListener('click', function() {
-    if (selectedDogId) {
-        document.querySelector(".invalid-feedback").style.display = "none";
-        localStorage.setItem('selectedDogId', selectedDogId);
-        window.location.href = 'walk_out_user_info.html';
-    }
-    else {
+document.getElementById('submitButton').addEventListener('click', function () {
+    if (selectedDogs.length > 0) {
+        if (selectedDogs.length === 2) {
+            const [dog1, dog2] = selectedDogs;
+                document.querySelector(".invalid-feedback").style.display = "none";
+                //document.querySelector(".invalid-compatibility").style.display = "none";
+                localStorage.setItem('selectedDogIds', JSON.stringify(selectedDogs)); // Uloženie oboch ID vybraných psov
+                window.location.href = 'walk_out_user_info.html';
+
+        } else if (selectedDogs.length === 1) {
+            document.querySelector(".invalid-feedback").style.display = "none";
+            //document.querySelector(".invalid-compatibility").style.display = "none";
+            localStorage.setItem('selectedDogIds', JSON.stringify(selectedDogs)); // Uloženie jedného vybraného ID psa ako pole
+            window.location.href = 'walk_out_user_info.html';
+        }
+    } else {
         document.querySelector(".invalid-feedback").style.display = "block";
         window.scrollTo({
             top: 0,
-            behavior: 'smooth' // Use 'auto' for instant scrolling
+            behavior: 'smooth'
         });
     }
 });

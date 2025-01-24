@@ -105,3 +105,10 @@ html, body {
         display: inline;
     }
 }
+
+.invalid-number, .invalid-compatibility{
+    display: none;
+    color: red;
+    font-size: 0.9em;
+    margin-top: 10px;
+}

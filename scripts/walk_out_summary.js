@@ -1,27 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
     const dogInfo = document.getElementById('dogInfo');
-    const dogId = localStorage.getItem('selectedDogId');
-    const dog = dogs.find(d => d.id === Number(dogId));
-
+    const selectedDogIds = JSON.parse(localStorage.getItem('selectedDogIds'));
     const date = localStorage.getItem('selectedDate');
     const time = localStorage.getItem('selectedTime');
 
-    dogInfo.innerHTML = `
-        <div class="mb-3 py-1 pe-2 ps-1">
-            <div class="row g-0">
-                <div class="col-6 d-flex">
-                    <img src="${dog.photo}" class="dog-photo" alt="${dog.name}">
-                </div>
-                <div class="col-6 d-flex justify-content-center align-items-center">
-                    <div class="dog-info">
-                        <strong>Dátum: </strong>${date}<br>
-                        <strong>Čas: </strong>${time}<br>
-                        <strong>Psík: </strong>${dog.name}<br>
-                    </div>
+// Najdi psov v DB
+    const selectedDogs = dogs.filter(d => selectedDogIds.includes(d.id));
+
+    dogInfo.innerHTML = selectedDogs.map(dog => `
+    <div class="mb-3 py-1 pe-2 ps-1">
+        <div class="row g-0">
+            <div class="col-6 d-flex">
+                <img src="${dog.photo}" class="dog-photo" alt="${dog.name}">
+            </div>
+            <div class="col-6 d-flex justify-content-center align-items-center">
+                <div class="dog-info">
+                    <strong>Dátum: </strong>${date}<br>
+                    <strong>Čas: </strong>${time}<br>
+                    <strong>Psík: </strong>${dog.name}<br>
                 </div>
             </div>
         </div>
-        `;
+    </div>
+`).join('')
 
 
     const userData = JSON.parse(localStorage.getItem('userData'));
