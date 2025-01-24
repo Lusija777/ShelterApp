@@ -241,7 +241,6 @@ document.getElementById('dogFilter').addEventListener('input', function() {
 document.getElementById('submitButton').addEventListener('click', function () {
     if (selectedDogs.length > 0) {
         if (selectedDogs.length === 2) {
-            const [dog1, dog2] = selectedDogs;
                 document.querySelector(".invalid-required").style.display = "none";
                 //document.querySelector(".invalid-compatibility").style.display = "none";
                 localStorage.setItem('selectedDogIds', JSON.stringify(selectedDogs)); // Uloženie oboch ID vybraných psov
