@@ -78,7 +78,8 @@ function renderDogs(page = 1) {
                     <div class="dog-info text-center">
                         <strong>${dog.name}</strong><br>
                         <small>veľkosť: ${dog.size}<br>pohlavie: ${dog.sex}</small><br>
-                        <small>vek: ${dog.age}</small>
+                        <small>vek: ${dog.age}</small><br>
+                        <small>výbeh č.: ${dog.room}</small>
                     </div>
                 </div>
                 <div class="card-footer bg-transparent border-0 text-center">
@@ -91,6 +92,18 @@ function renderDogs(page = 1) {
 
     renderPagination(filteredDogs.length, page);
     connectDetailButton();
+    selectCompatibleDogs();
+    selectChoosenDogs();
+}
+
+function selectChoosenDogs() {
+    selectedDogs.forEach(id => {
+        const selectedCard = document.querySelector(`[data-id="${id}"]`);
+        if (selectedCard) {
+            selectedCard.classList.remove('border-secondary', 'bg-success');
+            selectedCard.classList.add('bg-primary', 'bg-opacity-10', 'border-primary', 'border-3');
+        }
+    });
 }
 
 function renderPagination(totalDogs, currentPage) {
@@ -166,13 +179,47 @@ function updateSelectedDogsUI() {
 function removeDogFromSelected(id) {
     const index = selectedDogs.indexOf(id);
     if (index !== -1) {
+        if (selectedDogs.length === 1) {
+            unselectCompatibleDogs();
+        }
         selectedDogs.splice(index, 1); // Remove the dog from the array
+        selectCompatibleDogs();
         updateSelectedDogsUI(); // Update the UI
         const selectedCard = document.querySelector(`[data-id="${id}"]`);
         if (selectedCard) {
-            selectedCard.classList.remove('bg-primary', 'bg-opacity-10', 'border-primary', 'border-3');
-            selectedCard.classList.add('border-secondary');
+            selectedCard.classList.remove('bg-primary', 'border-primary', 'border-3');
+            selectedCard.classList.add('border-secondary', 'bg-opacity-10');
         }
+    }
+}
+
+function selectCompatibleDogs() {
+    if (selectedDogs.length === 1){
+        // zvyraznenie kompatibilnych psov, same room
+        const dogId = selectedDogs[0];
+        const firstDog = dogs.find(dog => dog.id === dogId);
+        const compatibleDogs = dogs.filter(dog => dog.room === firstDog.room && dog.id !== dogId);
+        compatibleDogs.forEach(dog => {
+            const compatibleCard = document.querySelector(`[data-id="${dog.id}"]`);
+            if (compatibleCard) {
+                compatibleCard.classList.add('bg-success', 'bg-opacity-10');
+            }
+        });
+    }
+}
+
+function unselectCompatibleDogs() {
+    if (selectedDogs.length === 1){
+        // zrušenie zvyraznenia kompatibilnych psov
+        const dogId = selectedDogs[0];
+        const firstDog = dogs.find(dog => dog.id === dogId);
+        const compatibleDogs = dogs.filter(dog => dog.room === firstDog.room && dog.id !== dogId);
+        compatibleDogs.forEach(dog => {
+            const compatibleCard = document.querySelector(`[data-id="${dog.id}"]`);
+            if (compatibleCard) {
+                compatibleCard.classList.remove('bg-success', 'bg-opacity-10');
+            }
+        });
     }
 }
 
@@ -185,11 +232,15 @@ function selectDog(dogId) {
     // Check if the dog is already selected
     if (selectedDogs.includes(dogId)) {
         // Remove the dog from the selection
+        if (selectedDogs.length === 1) {
+            unselectCompatibleDogs();
+        }
         selectedDogs = selectedDogs.filter(id => id !== dogId);
+        selectCompatibleDogs();
         updateSelectedDogsUI();
         if (selectedCard) {
             selectedCard.classList.remove('bg-primary', 'bg-opacity-10', 'border-primary', 'border-3');
-            selectedCard.classList.add('border-secondary');
+            selectedCard.classList.add('border-secondary', 'bg-opacity-10');
         }
     } else {
         if (selectedDogs.length < 2) {
@@ -209,9 +260,10 @@ function selectDog(dogId) {
 
             // Add the dog to the selection
             selectedDogs.push(dogId);
+            selectCompatibleDogs();
             updateSelectedDogsUI();
             if (selectedCard) {
-                selectedCard.classList.remove('border-secondary');
+                selectedCard.classList.remove('border-secondary','bg-success', 'border-success');
                 selectedCard.classList.add('bg-primary', 'bg-opacity-10', 'border-primary', 'border-3');
             }
         } else {

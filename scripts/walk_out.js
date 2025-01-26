@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (checkSecondDog.checked) {
                     window.location.href = 'walk_out_choose_second_dog.html';
                 } else {
+                    localStorage.setItem('selectedDogIds', JSON.stringify([parseInt(catalogSelectedDogId)]));
                     window.location.href = 'walk_out_user_info.html';
                 }
             }
