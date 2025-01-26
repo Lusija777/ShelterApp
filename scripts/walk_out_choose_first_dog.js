@@ -8,18 +8,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
-function renderDogs(page = 1, fromLoadMore = false) {
+function renderDogs(page = 1) {
     const dogSelectionGrid = document.getElementById('dogSelectionGrid');
-    let dogsToDisplay = [];
-    if (fromLoadMore) {
-        dogsToDisplay = filteredDogs.slice(limitDogCount - dogsPerPage, limitDogCount);
-    }
-    else {
-        dogSelectionGrid.innerHTML = '';
-        const start = (page - 1) * limitDogCount;
-        const end = page * limitDogCount;
-        dogsToDisplay = filteredDogs.slice(start, end);
-    }
+
+    dogSelectionGrid.innerHTML = '';
+    const start = (page - 1) * limitDogCount;
+    const end = page * limitDogCount;
+    let dogsToDisplay = filteredDogs.slice(start, end);
+
 
     dogsToDisplay.forEach(dog => {
         const dogCard = document.createElement('div');
