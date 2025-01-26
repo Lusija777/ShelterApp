@@ -8,7 +8,7 @@ dogsToFilter = filteredDogs;
 console.log(dogsToFilter);
 document.addEventListener('DOMContentLoaded', function() {
     renderDogs();
-    let selectedDogId = localStorage.getItem('selectedSecondDogId');
+    selectedDogId = localStorage.getItem('selectedSecondDogId');
     if (selectedDogId) {
         const button = document.querySelector(`.dog-info-select[data-dog-id="${selectedDogId}"]`);
         if (button) {
@@ -16,14 +16,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
-function renderDogs(page = 1) {
-    const start = (page - 1) * dogsPerPage;
-    const end = page * dogsPerPage;
-
-    const dogsToDisplay = filteredDogs.slice(start, end);
-
+function renderDogs(page = 1, fromLoadMore = false) {
     const dogSelectionGrid = document.getElementById('dogSelectionGrid');
-    dogSelectionGrid.innerHTML = '';
+    let dogsToDisplay = [];
+    if (fromLoadMore) {
+        dogsToDisplay = filteredDogs.slice(limitDogCount - dogsPerPage, limitDogCount);
+    }
+    else {
+        dogSelectionGrid.innerHTML = '';
+        const start = (page - 1) * limitDogCount;
+        const end = page * limitDogCount;
+        dogsToDisplay = filteredDogs.slice(start, end);
+    }
 
     dogsToDisplay.forEach(dog => {
         const dogCard = document.createElement('div');
@@ -50,6 +54,9 @@ function renderDogs(page = 1) {
 
     connectDetailButton();
     connectSelectButton();
+    showLoadMoreButton();
+    hideLoadMoreButton();
+    showSelectedDog();
 }
 
 function selectDog(dogId) {

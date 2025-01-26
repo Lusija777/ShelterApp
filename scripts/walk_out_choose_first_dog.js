@@ -8,13 +8,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
-function renderDogs(page = 1) {
-    const start = (page - 1) * dogsPerPage;
-    const end = page * dogsPerPage;
-    const dogsToDisplay = filteredDogs.slice(start, end);
-
+function renderDogs(page = 1, fromLoadMore = false) {
     const dogSelectionGrid = document.getElementById('dogSelectionGrid');
-    dogSelectionGrid.innerHTML = '';
+    let dogsToDisplay = [];
+    if (fromLoadMore) {
+        dogsToDisplay = filteredDogs.slice(limitDogCount - dogsPerPage, limitDogCount);
+    }
+    else {
+        dogSelectionGrid.innerHTML = '';
+        const start = (page - 1) * limitDogCount;
+        const end = page * limitDogCount;
+        dogsToDisplay = filteredDogs.slice(start, end);
+    }
 
     dogsToDisplay.forEach(dog => {
         const dogCard = document.createElement('div');
@@ -40,12 +45,15 @@ function renderDogs(page = 1) {
 
     connectDetailButton();
     connectSelectButton();
-
+    showLoadMoreButton();
+    hideLoadMoreButton();
+    showSelectedDog();
 }
 
 function selectDog(dogId) {
     const label = document.querySelector('label[for="secondDogCheckbox"]');
     if (selectedDogId === dogId) {
+        console.log('unselect selected '+selectedDogId);
         selectedDogId = null;
         document.querySelectorAll('.dog-card').forEach(card => {
             card.classList.remove('bg-primary', 'bg-opacity-10', 'border-primary', 'border-3');
@@ -94,6 +102,7 @@ document.getElementById('submitButton').addEventListener('click', function() {
             window.location.href = 'walk_out_choose_second_dog.html';
         }
         else{
+            localStorage.removeItem('selectedSecondDogId');
             window.location.href = 'walk_out_user_info.html';
         }
     }

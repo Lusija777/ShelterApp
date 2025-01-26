@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     window.location.href = 'walk_out_choose_second_dog.html';
                 }
                 else{
+                    localStorage.removeItem('selectedSecondDogId');
                     window.location.href = 'walk_out_user_info.html';
                 }
             }

@@ -1,5 +1,6 @@
 let selectedDogId = null;
 let dogsPerPage = 4; // Number of dogs to show per page
+let limitDogCount = 4;
 let currentPage = 1;
 
 var filteredDogs = dogs;
@@ -18,16 +19,30 @@ applyFilterButton.addEventListener("click", () => {
         if (checkedSizes.length === 0 && checkedSexes.length === 0) return true;
         if (checkedSizes.length === 0) return checkedSexes.includes(dog.sex);
         if (checkedSexes.length === 0) return checkedSizes.includes(dog.size);
-        dogsPerPage = 4;
         return checkedSexes.includes(dog.sex) && checkedSizes.includes(dog.size);
-
     });
+    limitDogCount = dogsPerPage;
 
     // Render Filtered Dogs
     renderDogs(1);
     const filterModal = bootstrap.Modal.getInstance(document.getElementById("filterModal"));
     filterModal.hide();
 });
+
+function showSelectedDog() {
+    if (selectedDogId) {
+        const selectedCard = document.querySelector(`[data-id="${selectedDogId}"]`);
+        if (selectedCard) {
+            selectedCard.classList.remove('border-secondary');
+            selectedCard.classList.add('bg-primary', 'bg-opacity-10', 'border-primary', 'border-3');
+        }
+        let button = document.querySelector(`.dog-info-select[data-dog-id="${selectedDogId}"]`);
+        if (button) {
+            button.textContent = 'Odobrať';
+            button.classList.add('btn-danger');
+        }
+    }
+}
 
 function connectDetailButton() {
     // event listener to show modal with dog details when button is clicked
@@ -71,6 +86,7 @@ function connectSelectButton() {
     document.querySelectorAll('.dog-info-select').forEach(button => {
         button.addEventListener('click', function() {
             const dogId = this.getAttribute('data-dog-id'); // Získaj ID psa z tlačidla
+            console.log('connect dogId '+dogId);
             selectDog(dogId); // Zavolaj funkciu selectDog
             document.querySelectorAll('.dog-info-select').forEach(otherButton => {
                 otherButton.textContent = 'Vybrať';
@@ -90,16 +106,27 @@ function connectSelectButton() {
     });
 }
 
+function hideLoadMoreButton() {
+    if (limitDogCount >= filteredDogs.length) {
+        let loadButton = document.getElementById('loadMoreButton');
+        loadButton.classList.add('d-none');
+        loadButton.parentElement.classList.remove('my-1');
+    }
+}
+function showLoadMoreButton() {
+    let loadButton = document.getElementById('loadMoreButton');
+    loadButton.classList.remove('d-none');
+    loadButton.parentElement.classList.add('my-1');
+}
+
 
 document.getElementById('dogFilter').addEventListener('input', function() {
-    renderDogs(currentPage, this.value);
+    renderDogs(currentPage);
 });
-    document.getElementById('loadMoreButton').addEventListener('click', () => {
-        dogsPerPage = dogsPerPage+4;
-        renderDogs(currentPage); // Re-render the grid with the updated number of items
-        if (dogsPerPage >= filteredDogs.length) {
-            document.getElementById('loadMoreButton').style.display = 'none';
-        }
+document.getElementById('loadMoreButton').addEventListener('click', () => {
+    limitDogCount += dogsPerPage;
+    renderDogs(currentPage, true); // Re-render the grid with the updated number of items
+    hideLoadMoreButton();
 });
 
 document.getElementById('backButton').addEventListener('click', function() {
