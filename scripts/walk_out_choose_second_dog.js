@@ -160,13 +160,13 @@ function updateSelectedDogsUI() {
     if (selectedDogs.length === 0) {
         chosenDogDiv.innerHTML = '';
     } else {
-        chosenDogDiv.innerHTML = '<div>Zvolení psíkovia:</div>';
+        chosenDogDiv.innerHTML = '<div>Zvolené psíky:</div>';
         selectedDogs.forEach(id => {
             const dog = dogs.find(d => d.id === id); // Find dog by ID
             if (dog) {
                 chosenDogDiv.innerHTML += `
                 <li class="mb-1">
-                    <strong>${dog.name}</strong> <small>- veľkosť: ${dog.size}, vek: ${dog.age}</small>
+                    <strong>${dog.name}</strong> <small>- veľkosť: ${dog.size}, vek: ${dog.age}, výbeh č.: ${dog.room}</small>
                     <button class="btn p-0" onclick="removeDogFromSelected(${id})">
                         <img src="images/remove.png" alt="Odstrániť psíka">
                     </button>
