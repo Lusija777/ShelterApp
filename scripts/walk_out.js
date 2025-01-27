@@ -51,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     submitButton.addEventListener('click', function (event) {
         event.preventDefault();
-        console.log('Form submitted');
         const dateValue = datepicker.value; // Get date from datepicker
 
         let isValid = true;

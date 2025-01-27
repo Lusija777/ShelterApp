@@ -4,7 +4,7 @@ window.onload = function () {
     if (userData) {
         const user = JSON.parse(userData);
 
-        document.getElementById('walkId').value = user.walkId || '';
+        document.getElementById('walkId').value = user.idNumber || '';
         document.getElementById('name').value = user.name || '';
         document.getElementById('surname').value = user.surname || '';
         document.getElementById('phone').value = user.phone || '';
