@@ -5,7 +5,6 @@ filteredDogs = dogs.filter(dog => {
     return firstDog.room === dog.room && Number(firstDogId) !== dog.id;
 });
 dogsToFilter = filteredDogs;
-console.log(dogsToFilter);
 document.addEventListener('DOMContentLoaded', function() {
     renderDogs();
     selectedDogId = localStorage.getItem('selectedSecondDogId');

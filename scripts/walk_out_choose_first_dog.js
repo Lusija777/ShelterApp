@@ -49,7 +49,6 @@ function renderDogs(page = 1) {
 function selectDog(dogId) {
     const label = document.querySelector('label[for="secondDogCheckbox"]');
     if (selectedDogId === dogId) {
-        console.log('unselect selected '+selectedDogId);
         selectedDogId = null;
         document.querySelectorAll('.dog-card').forEach(card => {
             card.classList.remove('bg-primary', 'bg-opacity-10', 'border-primary', 'border-3');

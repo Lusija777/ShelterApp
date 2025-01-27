@@ -62,7 +62,6 @@ function connectDetailButton() {
 
             const modalButton = document.querySelector('.dog-modal-info-select');
             modalButton.setAttribute('data-dog-id', dog.id);
-            console.log(Number(dog.id) === Number(selectedDogId));
             if (Number(dog.id) === Number(selectedDogId)){
                 modalButton.textContent = 'Odobrať';
                 modalButton.classList.add('btn-danger');
@@ -86,7 +85,6 @@ function connectSelectButton() {
     document.querySelectorAll('.dog-info-select').forEach(button => {
         button.addEventListener('click', function() {
             const dogId = this.getAttribute('data-dog-id'); // Získaj ID psa z tlačidla
-            console.log('connect dogId '+dogId);
             selectDog(dogId); // Zavolaj funkciu selectDog
             document.querySelectorAll('.dog-info-select').forEach(otherButton => {
                 otherButton.textContent = 'Vybrať';
@@ -100,8 +98,6 @@ function connectSelectButton() {
                 button.textContent = 'Vybrať';
                 button.classList.remove('btn-danger');
             }
-            console.log('selected '+selectedDogId);
-            console.log('dogId '+selectedDogId);
         });
     });
 }

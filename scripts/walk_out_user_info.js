@@ -1,16 +1,15 @@
-window.onload = function () {
+document.addEventListener('DOMContentLoaded', function() {
     const userData = localStorage.getItem('userData');
-
     if (userData) {
         const user = JSON.parse(userData);
 
-        document.getElementById('walkId').value = user.walkId || '';
+        document.getElementById('walkId').value = user.idNumber || '';
         document.getElementById('name').value = user.name || '';
         document.getElementById('surname').value = user.surname || '';
         document.getElementById('phone').value = user.phone || '';
         document.getElementById('email').value = user.email || '';
     }
-}
+});
 
 document.getElementById('passwordToggle').addEventListener('change', function() {
     const passwordFields = document.getElementById('passwordFields');
