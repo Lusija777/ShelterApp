@@ -34,6 +34,8 @@ function updateFilterOptions(animalType) {
 
     checksexmale.innerHTML = '';
     checksexfemale.innerHTML = '';
+    let roomFilterContainer = document.getElementById("room");
+    roomFilterContainer.innerHTML = '';
 
     // Update options based on animal type
     if (animalType === 'dog') {
@@ -41,6 +43,29 @@ function updateFilterOptions(animalType) {
             '                                <label for="pes" class="form-check-label">Pes</label>';
         checksexfemale.innerHTML += '<input class="form-check-input" type="checkbox" id="fenka" value="fenka">\n' +
             '                                <label for="fenka" class="form-check-label">Fenka</label>';
+
+        const roomOptions = ["1", "2", "3", "4", "5"];
+
+        roomOptions.forEach(room => {
+            const checkboxWrapper = document.createElement("div");
+            checkboxWrapper.classList.add("form-check");  // Bootstrap class for checkboxes
+
+            const checkbox = document.createElement("input");
+            checkbox.setAttribute("type", "checkbox");
+            checkbox.setAttribute("id", `room-${room}`);
+            checkbox.setAttribute("value", room);
+            checkbox.classList.add("form-check-input");
+
+            const label = document.createElement("label");
+            label.setAttribute("for", `room-${room}`);
+            label.classList.add("form-check-label");
+            label.textContent = `Výbeh č. ${room}`;
+
+            checkboxWrapper.appendChild(checkbox);
+            checkboxWrapper.appendChild(label);
+
+            roomFilterContainer.appendChild(checkboxWrapper);
+        });
 
     } else if (animalType === 'cat') {
         checksexmale.innerHTML += '<input class="form-check-input" type="checkbox" id="kocúr" value="kocúr">\n' +
@@ -57,16 +82,18 @@ applyFilterButton.addEventListener("click", () => {
     let sizes = document.querySelectorAll(('#size input'));
     let checkedSizes = Array.from(sizes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
 
-    // Filter Logic
+    let rooms = document.querySelectorAll(('#room input'));
+    let selectedRooms = Array.from(rooms).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+
     let toFilterPets = animalType === 'dog' ? dogs : cats;
     pets = toFilterPets.filter(pet => {
-        if (checkedSizes.length === 0 && checkedSexes.length === 0) return true;
-        if (checkedSizes.length === 0) return checkedSexes.includes(pet.sex);
-        if (checkedSexes.length === 0) return checkedSizes.includes(pet.size);
-        animalsPerPage = 4;
-        return checkedSexes.includes(pet.sex) && checkedSizes.includes(pet.size);
+        let matchesSex = checkedSexes.length === 0 || checkedSexes.includes(pet.sex);
+        let matchesSize = checkedSizes.length === 0 || checkedSizes.includes(pet.size);
+        let matchesRoom = selectedRooms.length === 0 || selectedRooms.includes(pet.room);
 
+        return matchesSex && matchesSize && matchesRoom;
     });
+    animalsPerPage = 4;
 
     // Render Filtered Dogs
     renderAnimals(1);
@@ -86,11 +113,14 @@ function renderAnimals(page = 1) {
     animalsToDisplay.forEach(animal => {
         const animalCard = document.createElement('div');
         animalCard.classList.add('col-6', 'col-md-3', 'animal-card');
+        const roomInfo = animal.room ? `<div class="text-primary">výbeh č. ${animal.room}</div>` : '';
+
         animalCard.innerHTML = `
-            <div class="card animal-card mb-3 py-1 pe-2 ps-1" data-id="${animal.id}" onclick="showAnimalDetails(${animal.id}, '${animalType}')">
+            <div class="card animal-card mb-3 py-1 pe-2 ps-1 border rounded-5 mt-1 border-secondary" data-id="${animal.id}" onclick="showAnimalDetails(${animal.id}, '${animalType}')">
                 <img src="${animal.photo}" class="animal-photo card-img-top" alt="${animal.name}">
-                <div class="animal-info text-center border rounded-5 mt-1 border-secondary" style="overflow: hidden; padding: 10px;">
-                    <strong>${animal.name}</strong><br>
+                <div class="animal-info text-center" style="overflow: hidden; padding: 10px;">
+                    <strong class="fs-5">${animal.name}</strong><br>
+                    ${roomInfo}
                     <small>veľkosť: ${animal.size}<br> pohlavie: ${animal.sex}</small><br>
                     <small>vek: ${animal.age}</small><br>
                     <button class="btn btn-primary btn-sm mt-2" onclick="showAnimalDetails(${animal.id}, '${animalType}')">Detail</button>

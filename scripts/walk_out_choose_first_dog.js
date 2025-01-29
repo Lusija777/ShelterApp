@@ -25,7 +25,8 @@ function renderDogs(page = 1) {
                 <div class="card-body p-0">
                     <img src="${dog.photo}" class="dog-photo card-img-top" alt="${dog.name}">
                     <div class="dog-info text-center">
-                        <strong>${dog.name}</strong><br>
+                        <strong class="fs-5">${dog.name}</strong><br>
+                        <div class="text-primary">výbeh č. ${dog.room}</div>
                         <small>veľkosť: ${dog.size}<br>pohlavie: ${dog.sex}</small><br>
                         <small>vek: ${dog.age}</small>
                     </div>

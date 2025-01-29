@@ -15,6 +15,13 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('animalImage').alt = animal.name;
         document.getElementById('animalShelterDuration').textContent = animal.shelterDuration || 'Neznáme';
         document.getElementById('animalShelterInfo').textContent = animal.info || 'Neznáme';
+        let roomList = document.getElementById('roomList');
+        if (animal.room) {
+            roomList.classList.remove('d-none');
+            document.getElementById('animalRoom').textContent = 'č. ' + animal.room;
+        } else {
+            roomList.classList.add('d-none');
+        }
     } else {
         window.location.href = 'catalog.js.html';
     }

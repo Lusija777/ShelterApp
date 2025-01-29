@@ -30,6 +30,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const count = dogs.filter(d => d.room === firstDog.room && d.id !== firstDog.id).length;
         const label = document.querySelector('label[for="secondDogCheckbox"]');
         label.innerHTML = '<strong>Chcete pridať druhého psíka?</strong><br>Budete mať na výber <strong>' + count + '</strong> psíkov';
+
+        let alertSameRoom = document.getElementById('alertSameRoom');
+        if (alertSameRoom)  {
+            alertSameRoom.classList.remove('d-none');
+            alertSameRoom.classList.add('d-block');
+        }
     }
     const datepicker = document.querySelector('#datepicker');
     const timeButtons = document.querySelectorAll('#time button');

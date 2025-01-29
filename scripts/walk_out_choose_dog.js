@@ -7,6 +7,10 @@ var filteredDogs = dogs;
 var dogsToFilter = dogs;
 const applyFilterButton = document.getElementById("applyFilter");
 
+document.addEventListener('DOMContentLoaded', function() {
+    updateFilterOptions();
+});
+
 applyFilterButton.addEventListener("click", () => {
     let sexes = document.querySelectorAll(('#sex input'));
     let checkedSexes = Array.from(sexes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
@@ -14,12 +18,15 @@ applyFilterButton.addEventListener("click", () => {
     let sizes = document.querySelectorAll(('#size input'));
     let checkedSizes = Array.from(sizes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
 
-    // Filter Logic
+    let rooms = document.querySelectorAll(('#room input'));
+    let selectedRooms = Array.from(rooms).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+
     filteredDogs = dogsToFilter.filter(dog => {
-        if (checkedSizes.length === 0 && checkedSexes.length === 0) return true;
-        if (checkedSizes.length === 0) return checkedSexes.includes(dog.sex);
-        if (checkedSexes.length === 0) return checkedSizes.includes(dog.size);
-        return checkedSexes.includes(dog.sex) && checkedSizes.includes(dog.size);
+        let matchesSex = checkedSexes.length === 0 || checkedSexes.includes(dog.sex);
+        let matchesSize = checkedSizes.length === 0 || checkedSizes.includes(dog.size);
+        let matchesRoom = selectedRooms.length === 0 || selectedRooms.includes(dog.room);
+
+        return matchesSex && matchesSize && matchesRoom;
     });
     limitDogCount = dogsPerPage;
 
@@ -28,6 +35,33 @@ applyFilterButton.addEventListener("click", () => {
     const filterModal = bootstrap.Modal.getInstance(document.getElementById("filterModal"));
     filterModal.hide();
 });
+
+function updateFilterOptions() {
+    const roomFilterContainer = document.getElementById("room");
+
+    const roomOptions = ["1", "2", "3", "4", "5"];
+
+    roomOptions.forEach(room => {
+        const checkboxWrapper = document.createElement("div");
+        checkboxWrapper.classList.add("form-check");  // Bootstrap class for checkboxes
+
+        const checkbox = document.createElement("input");
+        checkbox.setAttribute("type", "checkbox");
+        checkbox.setAttribute("id", `room-${room}`);
+        checkbox.setAttribute("value", room);
+        checkbox.classList.add("form-check-input");
+
+        const label = document.createElement("label");
+        label.setAttribute("for", `room-${room}`);
+        label.classList.add("form-check-label");
+        label.textContent = `Výbeh č. ${room}`;
+
+        checkboxWrapper.appendChild(checkbox);
+        checkboxWrapper.appendChild(label);
+
+        roomFilterContainer.appendChild(checkboxWrapper);
+    });
+}
 
 function showSelectedDog() {
     if (selectedDogId) {
