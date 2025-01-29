@@ -93,6 +93,7 @@ function connectDetailButton() {
             document.getElementById('animalShelterDuration').textContent = dog.shelterDuration || 'Neznáme';
             document.getElementById('animalDescription').textContent = dog.description || 'Bez popisu';
             document.getElementById('animalShelterInfo').textContent = dog.info || 'Neznáme';
+            document.getElementById('animalRoom').textContent = dog.room ? `č. ${dog.room}` : 'Neznáme';
 
             const modalButton = document.querySelector('.dog-modal-info-select');
             modalButton.setAttribute('data-dog-id', dog.id);
