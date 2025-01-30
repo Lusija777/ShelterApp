@@ -31,12 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const label = document.querySelector('label[for="secondDogCheckbox"]');
         label.innerHTML = '<strong>Chcete pridať druhého psíka?</strong><br>V ďalšom kroku budete mať na výber <strong>' + count + '</strong> psíkov.';
 
-        let alertSameRoom = document.getElementById('alertSameRoom');
-        if (alertSameRoom)  {
-            alertSameRoom.classList.remove('d-none');
-            alertSameRoom.classList.add('d-block');
-        }
-
         const style = document.createElement("style");
         style.innerHTML = "#step-1::after { content: 'Výber psíka'; } #step-2::after { content: 'Dátum a čas'; }";
         document.head.appendChild(style);
