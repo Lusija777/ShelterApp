@@ -19,82 +19,86 @@
     <div class="row text-center">
         <h1>Poď sa prejsť</h1>
     </div>
-    <div class="row progresses pb-1">
-        <ul class="d-flex align-items-center justify-content-between">
-            <li id="step-1" class="blue"></li>
-            <li id="step-2" class="blue"></li>
-            <li id="step-3" class="blue"></li>
-            <li id="step-4"></li>
-        </ul>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 66%;" aria-valuenow="25" aria-valuemin="0"
-                 aria-valuemax="100"></div>
+    <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-md-6">
+            <div class="row progresses pb-1">
+                <ul class="d-flex align-items-center justify-content-between">
+                    <li id="step-1" class="blue"></li>
+                    <li id="step-2" class="blue"></li>
+                    <li id="step-3" class="blue"></li>
+                    <li id="step-4"></li>
+                </ul>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 66%;" aria-valuenow="25" aria-valuemin="0"
+                         aria-valuemax="100"></div>
+                </div>
+            </div>
+
+            <div class="mb-1 mt-2">
+                <label><b>Vyplňte osobné údaje:</b></label>
+                <hr class="mt-0" width="50%">
+            </div>
+
+            <form id="registerForm" novalidate>
+                <div class="mb-3">
+                    <label for="walkId" class="form-label">Venčiarsky preukaz:</label>
+                    <i class="fas fa-circle-info" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ak nemáte venčiarsky preukaz, bude vám vybavený osobne pred prechádzkou."></i>
+
+                        <input type="text" id="walkId" class="form-control" placeholder="Zadajte číslo preukazu">
+                        <div id="help" class="small text-muted">Ak preukaz nemáte, vybavíme ho na mieste pred prechádzkou.</div>
+                        <div class="invalid-feedback"></div>
+
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Meno: *</label>
+                    <input type="text" id="name" class="form-control" placeholder="Zadajte meno" required>
+                    <div class="invalid-feedback">Meno je povinný údaj.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="surname" class="form-label">Priezvisko: *</label>
+                    <input type="text" id="surname" class="form-control" placeholder="Zadajte priezvisko" required>
+                    <div class="invalid-feedback">Priezvisko je povinný údaj.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Telefónne číslo: *</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="Zadajte číslo začínajúce 09" required>
+                    <div class="invalid-feedback">Telefónne číslo je povinný údaj</div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">E-mail: *</label>
+                    <input type="email" id="email" class="form-control" placeholder="Zadajte e-mail" required>
+                    <div class="invalid-feedback">E-mail je povinný údaj a musí byť platný.</div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="passwordToggle">
+                        <label class="form-check-label" for="passwordToggle">Chcete si vytvoriť účet?</label>
+                    </div>
+                </div>
+
+                <div id="passwordFields" class="d-none">
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Heslo: *</label>
+                        <input type="password" id="password" class="form-control" placeholder="Zadajte heslo">
+                        <div class="invalid-feedback">Heslo je povinný údaj.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Zopakujte heslo: *</label>
+                        <input type="password" id="confirmPassword" class="form-control" placeholder="Zopakujte heslo">
+                        <div class="invalid-feedback">Heslá sa nezhodujú. Uistite sa, že obe polia majú rovnaké heslo.</div>
+                    </div>
+                </div>
+                <div class="text-muted small">* je označený povinný údaj</div>
+                <div class="row" id="submitSection">
+                    <div class="col mb-2 mx-3">
+                        <button id="backButton" class="btn btn-secondary btn-lg" type="button"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button id="submit" class="btn btn-lg btn-primary w-75" type="submit">Pokračovať</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-
-    <div class="mb-1 mt-2">
-        <label><b>Vyplňte osobné údaje:</b></label>
-        <hr class="mt-0" width="50%">
-    </div>
-
-    <form id="registerForm" novalidate>
-        <div class="mb-3">
-            <label for="walkId" class="form-label">Venčiarsky preukaz:</label>
-            <i class="fas fa-circle-info" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ak nemáte venčiarsky preukaz, bude vám vybavený osobne pred prechádzkou."></i>
-
-                <input type="text" id="walkId" class="form-control" placeholder="Zadajte číslo preukazu">
-                <div id="help" class="small text-muted">Ak preukaz nemáte, vybavíme ho na mieste pred prechádzkou.</div>
-                <div class="invalid-feedback"></div>
-
-        </div>
-        <div class="mb-3">
-            <label for="name" class="form-label">Meno: *</label>
-            <input type="text" id="name" class="form-control" placeholder="Zadajte meno" required>
-            <div class="invalid-feedback">Meno je povinný údaj.</div>
-        </div>
-        <div class="mb-3">
-            <label for="surname" class="form-label">Priezvisko: *</label>
-            <input type="text" id="surname" class="form-control" placeholder="Zadajte priezvisko" required>
-            <div class="invalid-feedback">Priezvisko je povinný údaj.</div>
-        </div>
-        <div class="mb-3">
-            <label for="phone" class="form-label">Telefónne číslo: *</label>
-            <input type="tel" id="phone" class="form-control" placeholder="Zadajte číslo začínajúce 09" required>
-            <div class="invalid-feedback">Telefónne číslo je povinný údaj</div>
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">E-mail: *</label>
-            <input type="email" id="email" class="form-control" placeholder="Zadajte e-mail" required>
-            <div class="invalid-feedback">E-mail je povinný údaj a musí byť platný.</div>
-        </div>
-
-        <div class="mb-3">
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="passwordToggle">
-                <label class="form-check-label" for="passwordToggle">Chcete si vytvoriť účet?</label>
-            </div>
-        </div>
-
-        <div id="passwordFields" class="d-none">
-            <div class="mb-3">
-                <label for="password" class="form-label">Heslo: *</label>
-                <input type="password" id="password" class="form-control" placeholder="Zadajte heslo">
-                <div class="invalid-feedback">Heslo je povinný údaj.</div>
-            </div>
-            <div class="mb-3">
-                <label for="confirmPassword" class="form-label">Zopakujte heslo: *</label>
-                <input type="password" id="confirmPassword" class="form-control" placeholder="Zopakujte heslo">
-                <div class="invalid-feedback">Heslá sa nezhodujú. Uistite sa, že obe polia majú rovnaké heslo.</div>
-            </div>
-        </div>
-        <div class="text-muted small">* je označený povinný údaj</div>
-        <div class="row" id="submitSection">
-            <div class="col mb-2 mx-3">
-                <button id="backButton" class="btn btn-secondary btn-lg" type="button"><i class="fa-solid fa-chevron-left"></i></button>
-                <button id="submit" class="btn btn-lg btn-primary w-75" type="submit">Pokračovať</button>
-            </div>
-        </div>
-    </form>
 </div>
 
 <div id="footer"></div>

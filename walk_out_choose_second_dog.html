@@ -19,144 +19,148 @@
     <div class="row text-center">
         <h1>Poď sa prejsť</h1>
     </div>
-    <div class="row progresses pb-1">
-        <ul class="d-flex align-items-center justify-content-between">
-            <li id="step-1" class="blue"></li>
-            <li id="step-2" class="blue"></li>
-            <li id="step-3"></li>
-            <li id="step-4"></li>
-        </ul>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 33%;" aria-valuenow="25" aria-valuemin="0"
-                 aria-valuemax="100"></div>
-        </div>
-    </div>
-
-    <div class="row mb-1 mt-2">
-        <div class="col-8">
-            <div class="mb-1">
-                <label><b>Zvoľte si druhého psíka: *</b></label>
-            </div>
-            <hr class="mt-0" width="50%">
-        </div>
-
-        <div class="col-3 mx-auto">
-            <!-- Filter Button -->
-            <button id="dogFilter" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>
-        </div>
-    </div>
-
-    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="filterModalLabel">Filter</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="filterForm">
-
-                        <div class="mb-3" id="sex">
-                            <label class="form-label">Pohlavie:</label>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="pes" value="pes">
-                                <label for="pes" class="form-check-label">Pes</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="fenka" value="fenka">
-                                <label for="fenka" class="form-check-label">Fenka</label>
-                            </div>
-                        </div>
-
-                        <div class="mb-3" id="size">
-                            <label class="form-label">Veľkosť:</label>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="S" value="malá" name="S">
-                                <label for="S" class="form-check-label">Malá</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="M" value="stredná" name="M">
-                                <label for="M" class="form-check-label">Stredná</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="L" value="veľká" name="L">
-                                <label for="L" class="form-check-label">Veľká</label>
-                            </div>
-                        </div>
-
-                        <div class="mb-3" id="room">
-                            <label class="form-label">Výbehy:</label>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zavrieť</button>
-                    <button type="button" id="applyFilter" class="btn btn-success">Použiť Filter</button>
+    <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-md-6">
+            <div class="row progresses pb-1">
+                <ul class="d-flex align-items-center justify-content-between">
+                    <li id="step-1" class="blue"></li>
+                    <li id="step-2" class="blue"></li>
+                    <li id="step-3"></li>
+                    <li id="step-4"></li>
+                </ul>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 33%;" aria-valuenow="25" aria-valuemin="0"
+                         aria-valuemax="100"></div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="invalid-feedback">
-        Prosím, vyberte si psíka z ponuky.
-    </div>
-    <!-- Dog Selection Grid -->
-    <div class="row" id="dogSelectionGrid">
-        <!-- Dynamic content will be injected here -->
-    </div>
 
-    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="row mb-1 mt-2">
+                <div class="col-8">
+                    <div class="mb-1">
+                        <label><b>Zvoľte si druhého psíka: *</b></label>
+                    </div>
+                    <hr class="mt-0" width="50%">
                 </div>
-                <div class="modal-body" id="detailModalBody">
-                    <div id="animalDetail" class="row justify-content-center text-center mb-3">
-                        <div class="col-12 text-center">
-                            <!-- Center the image -->
-                            <img id="animalImage" class="animal-photo-detail img-fluid" alt="Zvieratko">
+
+                <div class="col-3 mx-auto">
+                    <!-- Filter Button -->
+                    <button id="dogFilter" class="btn btn-dark float-end" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>
+                </div>
+            </div>
+
+            <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="filterModalLabel">Filter</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
+                        <div class="modal-body">
+                            <form id="filterForm">
 
-                        <div class="col-12 text-center">
-                            <!-- Card body with centered text -->
-                            <div class="card-body">
-                                <h2 id="animalName" style="font-weight: bold;"></h2>
+                                <div class="mb-3" id="sex">
+                                    <label class="form-label">Pohlavie:</label>
 
-                                <ul class="centered-list list-unstyled">
-                                    <li><strong>veľkosť:</strong> <span id="animalSize"></span></li>
-                                    <li><strong>pohlavie:</strong> <span id="animalSex"></span></li>
-                                    <li><strong>vek:</strong> <span id="animalAge"></span></li>
-                                    <li><strong>výbeh:</strong> <span id="animalRoom"></span></li>
-                                    <li><strong>v útulku je:</strong> <span id="animalShelterDuration"></span></li>
-                                    <li><strong>špeciálne požiadavky:</strong> <span id="animalShelterInfo"></span></li>
-                                </ul>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="pes" value="pes">
+                                        <label for="pes" class="form-check-label">Pes</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="fenka" value="fenka">
+                                        <label for="fenka" class="form-check-label">Fenka</label>
+                                    </div>
+                                </div>
 
-                                <p id="animalDescription" class="card-text"></p>
-                            </div>
-                            <div class="d-grid gap-2 col-6 mx-auto">
-                                <button class="btn btn-primary dog-modal-info-select mt-1" data-dog-id="${dog.id}" data-bs-dismiss="modal" aria-label="Close">Vybrať</button>
+                                <div class="mb-3" id="size">
+                                    <label class="form-label">Veľkosť:</label>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="S" value="malá" name="S">
+                                        <label for="S" class="form-check-label">Malá</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="M" value="stredná" name="M">
+                                        <label for="M" class="form-check-label">Stredná</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="L" value="veľká" name="L">
+                                        <label for="L" class="form-check-label">Veľká</label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3" id="room">
+                                    <label class="form-label">Výbehy:</label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zavrieť</button>
+                            <button type="button" id="applyFilter" class="btn btn-success">Použiť Filter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="invalid-feedback">
+                Prosím, vyberte si psíka z ponuky.
+            </div>
+            <!-- Dog Selection Grid -->
+            <div class="row" id="dogSelectionGrid">
+                <!-- Dynamic content will be injected here -->
+            </div>
+
+            <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="detailModalBody">
+                            <div id="animalDetail" class="row justify-content-center text-center mb-3">
+                                <div class="col-12 text-center">
+                                    <!-- Center the image -->
+                                    <img id="animalImage" class="animal-photo-detail img-fluid" alt="Zvieratko">
+                                </div>
+
+                                <div class="col-12 text-center">
+                                    <!-- Card body with centered text -->
+                                    <div class="card-body">
+                                        <h2 id="animalName" style="font-weight: bold;"></h2>
+
+                                        <ul class="centered-list list-unstyled">
+                                            <li><strong>veľkosť:</strong> <span id="animalSize"></span></li>
+                                            <li><strong>pohlavie:</strong> <span id="animalSex"></span></li>
+                                            <li><strong>vek:</strong> <span id="animalAge"></span></li>
+                                            <li><strong>výbeh:</strong> <span id="animalRoom"></span></li>
+                                            <li><strong>v útulku je:</strong> <span id="animalShelterDuration"></span></li>
+                                            <li><strong>špeciálne požiadavky:</strong> <span id="animalShelterInfo"></span></li>
+                                        </ul>
+
+                                        <p id="animalDescription" class="card-text"></p>
+                                    </div>
+                                    <div class="d-grid gap-2 col-6 mx-auto">
+                                        <button class="btn btn-primary dog-modal-info-select mt-1" data-dog-id="${dog.id}" data-bs-dismiss="modal" aria-label="Close">Vybrať</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Pagination Section -->
-    <div class="text-center my-1 d-flex justify-content-center">
-        <button id="loadMoreButton" class="btn btn-primary">Načítať viac</button>
-    </div>
+            <!-- Pagination Section -->
+            <div class="text-center my-1 d-flex justify-content-center">
+                <button id="loadMoreButton" class="btn btn-primary">Načítať viac</button>
+            </div>
 
-    <!-- Selection Confirmation -->
-    <div class="text-muted small">* je označený povinný údaj</div>
-    <div class="row" id="submitSection">
-        <div class="col mb-2 mx-3">
-            <button id="backButton" class="btn btn-secondary btn-lg"><i class="fa-solid fa-chevron-left"></i></button>
-            <button id="submitButton" class="btn btn-lg btn-primary w-75">Potvrdiť výber</button>
+            <!-- Selection Confirmation -->
+            <div class="text-muted small">* je označený povinný údaj</div>
+            <div class="row" id="submitSection">
+                <div class="col mb-2 mx-3">
+                    <button id="backButton" class="btn btn-secondary btn-lg"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button id="submitButton" class="btn btn-lg btn-primary w-75">Potvrdiť výber</button>
 
+                </div>
+            </div>
         </div>
     </div>
 </div>

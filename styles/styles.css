@@ -107,7 +107,6 @@ html, body {
 }
 
 /* progressbar */
-
 .progresses {
     position: relative;
     max-width: 100%;
@@ -159,11 +158,27 @@ html, body {
 
 .progresses .progress {
     height: 0.8rem;
-    width: 80%;
     padding: 0;
-    margin: 0 15px;
+    margin: 0 5px;
     top: 9.5px;
     position: absolute;
     background-color: #f0f0f0;
     border-radius: 10px;
+}
+
+@media (max-width: 450px) {
+    .progresses .progress {
+        width: 85%;
+    }
+}
+@media (min-width: 451px) and (max-width: 1600px) {
+    .progresses .progress {
+        width: 90%;
+    }
+}
+
+@media (min-width: 1601px) {
+    .progresses .progress {
+        width: 95%;
+    }
 }
