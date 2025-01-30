@@ -30,8 +30,16 @@ applyFilterButton.addEventListener("click", () => {
     });
     limitDogCount = dogsPerPage;
 
-    // Render Filtered Dogs
-    renderDogs(1);
+    if (filteredDogs.length === 0){
+        const dogSelectionGrid = document.getElementById('dogSelectionGrid');
+        dogSelectionGrid.textContent = 'Momentálne v útulku nie sú k dispozícii psíky podľa zvoleného filtra.';
+        dogSelectionGrid.classList.add('justify-content-center', 'align-items-center', 'text-center','my-5', 'mx-2');
+        hideLoadMoreButton();
+    }
+    else{
+        // Render Filtered Dogs
+        renderDogs(1);
+    }
     const filterModal = bootstrap.Modal.getInstance(document.getElementById("filterModal"));
     filterModal.hide();
 });
