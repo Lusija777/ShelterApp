@@ -29,13 +29,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const count = dogs.filter(d => d.room === firstDog.room && d.id !== firstDog.id).length;
         const label = document.querySelector('label[for="secondDogCheckbox"]');
-        label.innerHTML = '<strong>Chcete pridať druhého psíka?</strong><br>Budete mať na výber <strong>' + count + '</strong> psíkov';
+        label.innerHTML = '<strong>Chcete pridať druhého psíka?</strong><br>V ďalšom kroku budete mať na výber <strong>' + count + '</strong> psíkov.';
 
         let alertSameRoom = document.getElementById('alertSameRoom');
         if (alertSameRoom)  {
             alertSameRoom.classList.remove('d-none');
             alertSameRoom.classList.add('d-block');
         }
+
+        const style = document.createElement("style");
+        style.innerHTML = "#step-1::after { content: 'Výber psíka'; } #step-2::after { content: 'Dátum a čas'; }";
+        document.head.appendChild(style);
+        let step2 = document.getElementById('step-2');
+        step2.classList.add('blue');
+        document.querySelector(".progress-bar").style.width = "33%";
+
     }
     const datepicker = document.querySelector('#datepicker');
     const timeButtons = document.querySelectorAll('#time button');

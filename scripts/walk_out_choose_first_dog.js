@@ -72,7 +72,7 @@ function selectDog(dogId) {
 
             firstDog = dogs.find(d => d.id === Number(dogId));
             const count = dogs.filter(d => d.room === firstDog.room && d.id !== firstDog.id).length;
-            label.innerHTML = '<strong>Chcete pridať druhého psíka?</strong><br>Budete mať na výber <strong>' + count + '</strong> psíkov';
+            label.innerHTML = '<strong>Chcete pridať druhého psíka?</strong><br>V ďalšom kroku budete mať na výber <strong>' + count + '</strong> psíkov.';
         }
     }
 }
