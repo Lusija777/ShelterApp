@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     const datepicker = document.querySelector('#datepicker');
     const timeButtons = document.querySelectorAll('#time button');
-    const submitButton = document.querySelector('#submit');
+    const submitButton = document.querySelector('#submitButton');
 
     let selectedTime = null;
     let timeId = localStorage.getItem('timeId');
