@@ -66,37 +66,17 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
         showError('email', 'E-mail musí byť platný. Skontrolujte, či obsahuje @ a platnú doménu.');
         hasError = true;
     }
-    //
-    // // Kontrola zhodnosti venčiarskeho preukazu
-    // if (idNumber) {
-    //     const user = users.find(u => u.idNumber === idNumber);
-    //     if (!user) {
-    //         showError('walkId', 'Venčiarsky preukaz sa nenašiel medzi registrovanými užívateľmi.');
-    //         hasError = true;
-    //     } else if (user.name !== name || user.surname !== surname || user.phone !== phone || user.email !== email) {
-    //         showError('walkId', 'Údaje sa nezhodujú s existujúcim preukazom.');
-    //         hasError = true;
-    //     }
-    // }
-
-    if (checkbox.checked){
-        if (!password) {
-            showError('password', 'Heslo je povinný údaj.');
-            hasError = true;
-        }
-        if (!confirmPassword) {
-            showError('confirmPassword', 'Zopakujte heslo pre potvrdenie. Toto pole je povinné.');
-            hasError = true;
-        }
-    }
 
     // Kontrola hesiel, ak sú zadané
     if (document.getElementById('passwordToggle').checked) {
-        if (!password || !confirmPassword) {
-            showError('password', 'Heslo je povinné. Vyplňte obe polia.');
+        if (!password || password.length < 8) {
+            showError('password', 'Heslo je povinné a musí mať aspoň 8 znakov.');
+            hasError = true;
+        } else if (!confirmPassword) {
+            showError('confirmPassword', 'Zopakujte heslo pre potvrdenie. Toto pole je povinné.');
             hasError = true;
         } else if (password !== confirmPassword) {
-            showError('confirmPassword', 'Heslá sa nezhodujú. Uistite sa, že obe polia majú rovnaké heslo.');
+            showError('confirmPassword', 'Heslá sa nezhodujú. Uistite sa, že ste zadaliF rovnaké heslo.');
             hasError = true;
         }
     }

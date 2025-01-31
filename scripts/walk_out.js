@@ -23,6 +23,15 @@ document.addEventListener('DOMContentLoaded', function () {
         let dogName = firstDog.name;
         document.getElementsByClassName('walk-text')[0].innerHTML = 'Tu si rezervujete prechádzku s Vami vybraným psíkom s menom: <strong>' + dogName + '</strong>. Prechádzka trvá maximálne 2 hodiny.';
 
+        document.getElementById('alert').innerHTML = `
+            <div class="row mb-1 mt-2">
+                <div class="col-12">
+                    <div class="alert alert-warning text-center p-2" role="alert">
+                        <strong>Upozornenie:</strong> Ak si budete chcieť vybrať dvoch psíkov, musia byť z rovnakého výbehu.
+                    </div>
+                </div>
+            </div>`;
+
         let section = document.getElementById('secondDogCheckboxSection');
         section.classList.remove('d-none');
         section.classList.add('d-block');
